@@ -35,6 +35,12 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
+  flutter_localizations:
+    sdk: flutter           #Used for multilanguage feature  
+  http: ^0.13.5            #Used to making http request
+  flutter_bloc: ^8.1.1     #Used to implement bloc in the app
+  url_launcher: ^6.1.6     #For launching the web URL, Phone call etc.
+  flutter_svg: ^1.1.6      #For loading SVG image into the app.
 
 dev_dependencies:
   flutter_test:
