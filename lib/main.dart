@@ -1,3 +1,4 @@
+import 'package:ecommerce_mobile/ui/authentication/login_screen.dart';
 import 'package:ecommerce_mobile/ui/test_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -18,7 +19,7 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      initialRoute: TestScreen.id,
+      initialRoute: LoginScreen.id,
       onGenerateRoute: RouteGenerator().generateRoute,
     );
   }
