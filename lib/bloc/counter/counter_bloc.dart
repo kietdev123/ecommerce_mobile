@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:ecommerce_mobile/bloc/counter/counter_event.dart';
 import 'package:ecommerce_mobile/bloc/counter/counter_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

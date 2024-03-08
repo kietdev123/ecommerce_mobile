@@ -42,6 +42,9 @@ dependencies:
   url_launcher: ^6.1.6     #For launching the web URL, Phone call etc.
   flutter_svg: ^1.1.6      #For loading SVG image into the app.
 
+  firebase_auth: ^4.17.7   #For authentication.
+  firebase_core: ^2.26.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

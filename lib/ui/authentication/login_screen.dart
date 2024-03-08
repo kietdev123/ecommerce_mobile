@@ -1,5 +1,6 @@
 import 'package:ecommerce_mobile/ui/utils/utils.dart';
 import 'package:ecommerce_mobile/ui/widgets/custom_card.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
@@ -13,6 +14,9 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
+  final _emailTextController = TextEditingController();
+  final _passwordTextController = TextEditingController();
+  bool isLoading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -42,6 +46,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
                   CustomCard(
                     child: TextFormField(
+                      controller: _emailTextController,
                       // The validator receives the text that the user has entered.
                       maxLength: 30,
                       decoration: const InputDecoration(
@@ -55,6 +60,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
                   CustomCard(
                     child: TextFormField(
+                      controller: _passwordTextController,
                       // The validator receives the text that the user has entered.
                       maxLength: 30,
                       decoration: const InputDecoration(hintText: "Password"),
@@ -85,17 +91,41 @@ class _LoginScreenState extends State<LoginScreen> {
                         borderRadius: BorderRadius.circular(12.0),
                       ),
                     ),
-                    onPressed: () {
+                    onPressed: () async {
                       // Validate returns true if the form is valid, or false otherwise.
                       if (_formKey.currentState!.validate()) {
                         // If the form is valid, display a snackbar. In the real world,
                         // you'd often call a server or save the information in a database.
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(content: Text('Processing Data')),
-                        );
+                        setState(() {
+                          isLoading = true;
+                        });
+                        try {
+                          var emailAddress = _emailTextController.text.trim();
+                          var password = _passwordTextController.text.trim();
+
+                          final credential = await FirebaseAuth.instance
+                              .signInWithEmailAndPassword(
+                                  email: emailAddress, password: password);
+
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(content: Text('Login success')),
+                          );
+                        } on FirebaseAuthException catch (e) {
+                          print(e.message);
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(content: Text(e.message.toString())),
+                          );
+                        }
+                        setState(() {
+                          isLoading = false;
+                        });
                       }
                     },
-                    child: const Text('SIGN UP'),
+                    child: (isLoading)
+                        ? const Center(
+                            child: CircularProgressIndicator(),
+                          )
+                        : const Text('SIGN UP'),
                   ),
                 ],
               ),
