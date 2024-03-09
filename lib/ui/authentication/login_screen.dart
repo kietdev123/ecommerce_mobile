@@ -1,3 +1,4 @@
+import 'package:ecommerce_mobile/ui/setting/setting_screen.dart';
 import 'package:ecommerce_mobile/ui/utils/utils.dart';
 import 'package:ecommerce_mobile/ui/widgets/custom_card.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -119,6 +120,9 @@ class _LoginScreenState extends State<LoginScreen> {
                         setState(() {
                           isLoading = false;
                         });
+                        Navigator.of(context, rootNavigator: true).pushNamed(
+                          SettingScreen.id,
+                        );
                       }
                     },
                     child: (isLoading)

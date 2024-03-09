@@ -1,4 +1,5 @@
 import 'package:ecommerce_mobile/ui/authentication/login_screen.dart';
+import 'package:ecommerce_mobile/ui/setting/setting_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../bloc/counter/counter_bloc.dart';
@@ -25,6 +26,10 @@ class RouteGenerator {
           ),
         );
 
+      case SettingScreen.id:
+        return MaterialPageRoute(
+          builder: (_) => SettingScreen(),
+        );
       default:
         return _errorRoute();
     }
