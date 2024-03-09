@@ -1,9 +1,14 @@
+import 'package:ecommerce_mobile/res/resources.dart';
 import 'package:ecommerce_mobile/ui/setting/setting_screen.dart';
 import 'package:ecommerce_mobile/ui/utils/utils.dart';
 import 'package:ecommerce_mobile/ui/widgets/custom_card.dart';
+import 'package:ecommerce_mobile/ui/widgets/padding_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_localization/flutter_localization.dart';
+
+import '../../res/app_locale.dart';
 
 class LoginScreen extends StatefulWidget {
   static const String id = "login_screen";
@@ -21,10 +26,10 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final resource = Resources(context);
     return Scaffold(
       body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.fromLTRB(24, 0, 24, 0),
+        child: PaddingScreen(
           child: Column(children: [
             Form(
               key: _formKey,
@@ -39,9 +44,10 @@ class _LoginScreenState extends State<LoginScreen> {
                   const SizedBox(height: 24),
                   const Icon(Icons.arrow_back_ios),
                   const SizedBox(height: 12),
-                  const Text(
-                    'Sign up',
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
+                  Text(
+                    AppLocale.signUp.getString(context),
+                    style: const TextStyle(
+                        fontWeight: FontWeight.bold, fontSize: 30),
                   ),
                   const SizedBox(height: 36),
 

@@ -1,8 +1,8 @@
 import 'dimensions.dart';
 
-class AppDimension extends Dimensions{
+class AppDimension extends Dimensions {
   @override
-  double get bigMargin => 20;
+  double get bigMargin => 24;
 
   @override
   double get defaultMargin => 16;

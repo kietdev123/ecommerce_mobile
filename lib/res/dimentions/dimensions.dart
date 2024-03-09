@@ -1,4 +1,4 @@
-abstract class Dimensions{
+abstract class Dimensions {
   //define your text sizes
   double get verySmallText;
   double get smallText;

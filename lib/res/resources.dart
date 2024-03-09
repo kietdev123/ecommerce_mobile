@@ -6,7 +6,6 @@ import 'dimentions/app_dimension.dart';
 import 'strings/strings.dart';
 
 class Resources {
-
   final BuildContext _context;
   Resources(this._context);
 
@@ -30,7 +29,15 @@ class Resources {
     return AppDrawable();
   }
 
-  static Resources of(BuildContext context){
+  static Resources of(BuildContext context) {
     return Resources(context);
+  }
+
+  double paddingScreen() {
+    double width = MediaQuery.of(_context).size.width;
+    if (width <= 500) return 24;
+    if (width <= 800) return width * 0.2;
+    if (width <= 1000) return width * 0.25;
+    return width * 0.3;
   }
 }

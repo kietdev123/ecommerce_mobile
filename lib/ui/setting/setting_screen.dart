@@ -1,3 +1,4 @@
+import 'package:ecommerce_mobile/ui/widgets/padding_screen.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -19,11 +20,15 @@ class _SettingScreenState extends State<SettingScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(AppLocale.setting.getString(context))),
-      body: Container(
-        padding: const EdgeInsets.all(16.0),
+      body: PaddingScreen(
         child: Column(
           children: [
+            ElevatedButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: Text('back')),
+            Text(AppLocale.setting.getString(context)),
             Row(
               children: [
                 Expanded(
