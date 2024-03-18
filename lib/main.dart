@@ -1,6 +1,4 @@
-import 'dart:io';
-
-import 'package:ecommerce_mobile/ui/authentication/login_screen.dart';
+import 'package:ecommerce_mobile/ui/authentication/sign_in_screen.dart';
 import 'package:ecommerce_mobile/ui/test_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
@@ -9,12 +7,14 @@ import 'package:flutter_localization/flutter_localization.dart';
 import 'firebase_options.dart';
 import 'res/app_locale.dart';
 import 'routes/route_generator.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 
-bool shouldUseFirebaseEmulator = false;
+late final FirebaseApp app;
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  await Firebase.initializeApp(
+  app = await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
@@ -51,10 +51,11 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      initialRoute: LoginScreen.id,
+      initialRoute: SignInScreen.id,
       onGenerateRoute: RouteGenerator().generateRoute,
       supportedLocales: localization.supportedLocales,
       localizationsDelegates: localization.localizationsDelegates,
+      builder: EasyLoading.init(),
     );
   }
 }

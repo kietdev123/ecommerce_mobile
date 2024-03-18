@@ -1,4 +1,5 @@
-import 'package:ecommerce_mobile/ui/authentication/login_screen.dart';
+import 'package:ecommerce_mobile/bloc/authentication/authentication_bloc.dart';
+import 'package:ecommerce_mobile/ui/authentication/sign_in_screen.dart';
 import 'package:ecommerce_mobile/ui/setting/setting_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -12,17 +13,17 @@ class RouteGenerator {
     switch (settings.name) {
       case TestScreen.id:
         return MaterialPageRoute(
-          builder: (_) => BlocProvider<CounterBloc>.value(
-            value: CounterBloc(),
+          builder: (_) => BlocProvider(
+            create: (_) => CounterBloc(),
             child: const TestScreen(),
           ),
         );
 
-      case LoginScreen.id:
+      case SignInScreen.id:
         return MaterialPageRoute(
-          builder: (_) => BlocProvider<CounterBloc>.value(
-            value: CounterBloc(),
-            child: const LoginScreen(),
+          builder: (_) => BlocProvider(
+            create: (_) => AuthenticationBloc(),
+            child: const SignInScreen(),
           ),
         );
 
