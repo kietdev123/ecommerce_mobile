@@ -54,11 +54,8 @@ class _SignInScreenState extends State<SignInScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   // Add TextFormFields and ElevatedButton here.
-                  // IconButton(
-                  //     padding: const EdgeInsets.all(0),
-                  //     onPressed: () {},
-                  //     icon: ),
-                  const SizedBox(height: 24),
+
+                  const SizedBox(height: 50),
                   const Icon(Icons.arrow_back_ios),
                   const SizedBox(height: 12),
                   Text(
@@ -66,17 +63,25 @@ class _SignInScreenState extends State<SignInScreen> {
                     style: const TextStyle(
                         fontWeight: FontWeight.bold, fontSize: 30),
                   ),
-                  const SizedBox(height: 36),
+                  const SizedBox(height: 80),
 
                   CustomCard(
                     child: TextFormField(
                       controller: _emailTextController,
                       // The validator receives the text that the user has entered.
+                      cursorColor: resource.color.colorPrimaryText,
                       maxLength: 30,
-                      decoration: const InputDecoration(
-                        hintText: "Email",
+                      autovalidateMode: AutovalidateMode.onUserInteraction,
+                      decoration: InputDecoration(
+                        // border: InputBorder.none,
+                        labelStyle:
+                            TextStyle(color: resource.color.colorPrimaryText),
+                        focusColor: resource.color.colorPrimaryText,
+                        labelText: "Email",
                       ),
-                      validator: validateEmail,
+                      validator: (value) {
+                        return validateEmail(value, context);
+                      },
                     ),
                   ),
 
@@ -86,9 +91,12 @@ class _SignInScreenState extends State<SignInScreen> {
                     child: TextFormField(
                       controller: _passwordTextController,
                       // The validator receives the text that the user has entered.
+                      autovalidateMode: AutovalidateMode.onUserInteraction,
                       maxLength: 30,
                       decoration: InputDecoration(
-                        hintText: AppLocale.password.getString(context),
+                        labelText: AppLocale.password.getString(context),
+                        labelStyle:
+                            TextStyle(color: resource.color.colorPrimaryText),
                         suffixIcon: isObscure
                             ? IconButton(
                                 onPressed: () {
@@ -112,13 +120,13 @@ class _SignInScreenState extends State<SignInScreen> {
 
                   const SizedBox(height: 24),
 
-                  const Row(
+                  Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      Text('Already have an account?'),
+                      Text(AppLocale.alreadyHaveAnAccount.getString(context)),
                       Icon(
                         Icons.arrow_right_alt_outlined,
-                        color: Colors.red,
+                        color: resource.color.colorPrimary,
                       )
                     ],
                   ),
@@ -128,34 +136,36 @@ class _SignInScreenState extends State<SignInScreen> {
                   BlocConsumer<AuthenticationBloc, AuthenticationState>(
                     builder: (context, state) {
                       return ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            minimumSize: const Size(double.infinity, 46),
-                            maximumSize: const Size(double.infinity, 46),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(12.0),
-                            ),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: resource.color.colorPrimary,
+                          minimumSize: const Size(double.infinity, 46),
+                          maximumSize: const Size(double.infinity, 46),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12.0),
                           ),
-                          onPressed: () async {
-                            if (state is AuthenticationSignInSuccess) return;
-                            if (state is AuthenticationLoading) return;
-                            if (_formKey.currentState!.validate()) {
-                              var emailAddress =
-                                  _emailTextController.text.trim();
-                              var password =
-                                  _passwordTextController.text.trim();
-                              EasyLoading.show();
+                        ),
+                        onPressed: () async {
+                          if (state is AuthenticationSignInSuccess) return;
+                          if (state is AuthenticationLoading) return;
+                          if (_formKey.currentState!.validate()) {
+                            var emailAddress = _emailTextController.text.trim();
+                            var password = _passwordTextController.text.trim();
+                            EasyLoading.show();
 
-                              _authenticationBloc.add(
-                                AuthenticationSignInWithEmailPassWordEvent(
-                                  emailAddress,
-                                  password,
-                                ),
-                              );
-                            }
-                          },
-                          child: Text(AppLocale.signUp
-                              .getString(context)
-                              .toUpperCase()));
+                            _authenticationBloc.add(
+                              AuthenticationSignInWithEmailPassWordEvent(
+                                emailAddress,
+                                password,
+                              ),
+                            );
+                          }
+                        },
+                        child: Text(
+                          AppLocale.signUp.getString(context).toUpperCase(),
+                          style: TextStyle(
+                              color: resource.color.colorInPrimaryBackground),
+                        ),
+                      );
                     },
                     listener: (context, state) async {
                       if (state is AuthenticationLoading) {
@@ -170,10 +180,23 @@ class _SignInScreenState extends State<SignInScreen> {
                       } else if (state is AuthenticationPageError) {
                         EasyLoading.dismiss();
 
-                        EasyLoading.showError(state.error.toString());
+                        EasyLoading.showError(state.error.toString(),
+                            duration: const Duration(seconds: 2));
                       }
                     },
                   ),
+
+                  const SizedBox(height: 50),
+                  Center(
+                      child: Text(AppLocale.orSignInWithSocialAccount
+                          .getString(context))),
+                  const SizedBox(height: 12),
+                  Center(
+                      child: IconButton(
+                    onPressed: () {},
+                    icon: Image.asset('assets/images/google_icon.png'),
+                    iconSize: 36,
+                  )),
                 ],
               ),
             ),

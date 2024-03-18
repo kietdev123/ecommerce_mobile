@@ -31,10 +31,10 @@ class AuthenticationBloc
             event.email, event.password);
 
         emit(AuthenticationSignInSuccess());
-      } catch (e) {
+      } on FirebaseAuthException catch (e) {
         print(e);
 
-        emit(AuthenticationPageError(e));
+        emit(AuthenticationPageError(e.message));
       }
     }
   }

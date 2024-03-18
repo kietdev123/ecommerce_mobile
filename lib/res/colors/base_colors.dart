@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 
-abstract class BaseColors{
+abstract class BaseColors {
   //theme color
   MaterialColor get colorPrimary;
   MaterialColor get colorAccent;
+  Color get colorInPrimaryBackground;
   //text color
   Color get colorPrimaryText;
+
   Color get colorSecondaryText;
   Color get colorAppbarTitle;
   //Extra color
