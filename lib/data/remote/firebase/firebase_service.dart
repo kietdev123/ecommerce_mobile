@@ -10,4 +10,12 @@ class FirebaseService {
       rethrow;
     }
   }
+
+  Future<void> signOut() async {
+    try {
+      await FirebaseAuth.instance.signOut();
+    } catch (e) {
+      rethrow;
+    }
+  }
 }

@@ -5,3 +5,5 @@ class AuthenticationSignInWithEmailPassWordEvent extends AuthenticationEvent {
   final String password;
   AuthenticationSignInWithEmailPassWordEvent(this.email, this.password);
 }
+
+class SignOutEvent extends AuthenticationEvent {}

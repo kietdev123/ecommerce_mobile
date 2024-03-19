@@ -10,10 +10,12 @@ class AuthenticationInitial extends AuthenticationState {
 class AuthenticationLoading extends AuthenticationState {}
 
 //This is the success state of bloc
-class AuthenticationSignInSuccess extends AuthenticationState {}
+class SignInSuccess extends AuthenticationState {}
+
+class SignOutSuccess extends AuthenticationState {}
 
 //This is the error state of bloc
-class AuthenticationPageError extends AuthenticationState {
+class AuthenticationError extends AuthenticationState {
   late final dynamic error;
-  AuthenticationPageError(this.error);
+  AuthenticationError(this.error);
 }

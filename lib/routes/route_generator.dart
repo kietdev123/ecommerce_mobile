@@ -1,5 +1,6 @@
 import 'package:ecommerce_mobile/bloc/authentication/authentication_bloc.dart';
 import 'package:ecommerce_mobile/ui/authentication/sign_in_screen.dart';
+import 'package:ecommerce_mobile/ui/home/home_screen.dart';
 import 'package:ecommerce_mobile/ui/setting/setting_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -11,25 +12,27 @@ class RouteGenerator {
     final args = settings.arguments;
 
     switch (settings.name) {
-      case TestScreen.id:
-        return MaterialPageRoute(
-          builder: (_) => BlocProvider(
-            create: (_) => CounterBloc(),
-            child: const TestScreen(),
-          ),
-        );
+      // case TestScreen.id:
+      //   return MaterialPageRoute(
+      //     builder: (_) => BlocProvider(
+      //       create: (_) => CounterBloc(),
+      //       child: const TestScreen(),
+      //     ),
+      //   );
 
       case SignInScreen.id:
         return MaterialPageRoute(
-          builder: (_) => BlocProvider(
-            create: (_) => AuthenticationBloc(),
-            child: const SignInScreen(),
-          ),
+          builder: (_) => const SignInScreen(),
         );
 
       case SettingScreen.id:
         return MaterialPageRoute(
           builder: (_) => SettingScreen(),
+        );
+
+      case HomeScreen.id:
+        return MaterialPageRoute(
+          builder: (_) => const HomeScreen(),
         );
       default:
         return _errorRoute();

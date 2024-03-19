@@ -15,4 +15,13 @@ class AuthenticationRepoImp extends AuthenticationRepo {
       rethrow;
     }
   }
+
+  @override
+  Future<void> signOut() async {
+    try {
+      await _fireBaseService.signOut();
+    } catch (e) {
+      rethrow;
+    }
+  }
 }

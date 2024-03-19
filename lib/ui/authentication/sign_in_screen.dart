@@ -145,7 +145,7 @@ class _SignInScreenState extends State<SignInScreen> {
                           ),
                         ),
                         onPressed: () async {
-                          if (state is AuthenticationSignInSuccess) return;
+                          if (state is SignInSuccess) return;
                           if (state is AuthenticationLoading) return;
                           if (_formKey.currentState!.validate()) {
                             var emailAddress = _emailTextController.text.trim();
@@ -169,7 +169,7 @@ class _SignInScreenState extends State<SignInScreen> {
                     },
                     listener: (context, state) async {
                       if (state is AuthenticationLoading) {
-                      } else if (state is AuthenticationSignInSuccess) {
+                      } else if (state is SignInSuccess) {
                         EasyLoading.dismiss();
                         EasyLoading.showSuccess('Login successful');
                         Future.delayed(const Duration(seconds: 2), () {
@@ -177,7 +177,7 @@ class _SignInScreenState extends State<SignInScreen> {
                             SettingScreen.id,
                           );
                         });
-                      } else if (state is AuthenticationPageError) {
+                      } else if (state is AuthenticationError) {
                         EasyLoading.dismiss();
 
                         EasyLoading.showError(state.error.toString(),
@@ -194,8 +194,10 @@ class _SignInScreenState extends State<SignInScreen> {
                   Center(
                       child: IconButton(
                     onPressed: () {},
-                    icon: Image.asset('assets/images/google_icon.png'),
-                    iconSize: 36,
+                    icon: Image.asset(
+                      'assets/images/google_icon.png',
+                      width: 36,
+                    ),
                   )),
                 ],
               ),

@@ -15,11 +15,8 @@ class AuthenticationBloc
   late final FirebaseAuth auth;
 
   AuthenticationBloc() : super(AuthenticationInitial(0)) {
-    auth = FirebaseAuth.instanceFor(app: app);
-    // on<AuthenticationSignInWithEmailPassWordEvent>((event, emit) {
-    //   _signIn(event, emit);
-    // });
     on<AuthenticationSignInWithEmailPassWordEvent>(_signIn);
+    on<SignOutEvent>(_logout);
   }
 
   Future<void> _signIn(
@@ -30,11 +27,27 @@ class AuthenticationBloc
         await _authenticationRepo.signInWithEmailPassword(
             event.email, event.password);
 
-        emit(AuthenticationSignInSuccess());
+        emit(SignInSuccess());
       } on FirebaseAuthException catch (e) {
         print(e);
 
-        emit(AuthenticationPageError(e.message));
+        emit(AuthenticationError(e.message));
+      }
+    }
+  }
+
+  Future<void> _logout(
+      AuthenticationEvent event, Emitter<AuthenticationState> emit) async {
+    emit(AuthenticationLoading());
+    if (event is SignOutEvent) {
+      try {
+        await _authenticationRepo.signOut();
+
+        emit(SignOutSuccess());
+      } on FirebaseAuthException catch (e) {
+        print(e);
+
+        emit(AuthenticationError(e.message));
       }
     }
   }
