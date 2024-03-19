@@ -1,4 +1,5 @@
 import 'package:ecommerce_mobile/data/remote/firebase/firebase_service.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import './authentication_repo.dart';
 
 class AuthenticationRepoImp extends AuthenticationRepo {
@@ -20,6 +21,15 @@ class AuthenticationRepoImp extends AuthenticationRepo {
   Future<void> signOut() async {
     try {
       await _fireBaseService.signOut();
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  User? loadProfile() {
+    try {
+      _fireBaseService.loadProfile();
     } catch (e) {
       rethrow;
     }

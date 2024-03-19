@@ -145,7 +145,7 @@ class _SignInScreenState extends State<SignInScreen> {
                           ),
                         ),
                         onPressed: () async {
-                          if (state is SignInSuccess) return;
+                          if (state is AuthenticationSuccess) return;
                           if (state is AuthenticationLoading) return;
                           if (_formKey.currentState!.validate()) {
                             var emailAddress = _emailTextController.text.trim();
@@ -169,7 +169,7 @@ class _SignInScreenState extends State<SignInScreen> {
                     },
                     listener: (context, state) async {
                       if (state is AuthenticationLoading) {
-                      } else if (state is SignInSuccess) {
+                      } else if (state is AuthenticationSuccess) {
                         EasyLoading.dismiss();
                         EasyLoading.showSuccess('Login successful');
                         Future.delayed(const Duration(seconds: 2), () {

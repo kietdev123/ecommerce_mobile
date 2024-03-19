@@ -13,10 +13,11 @@ class AuthenticationBloc
   final _authenticationRepo = AuthenticationRepoImp();
   int value = 0;
   late final FirebaseAuth auth;
-
+  User? user;
   AuthenticationBloc() : super(AuthenticationInitial(0)) {
     on<AuthenticationSignInWithEmailPassWordEvent>(_signIn);
     on<SignOutEvent>(_logout);
+    on<LoadProfileEvent>(_loadProfile);
   }
 
   Future<void> _signIn(
@@ -24,10 +25,11 @@ class AuthenticationBloc
     emit(AuthenticationLoading());
     if (event is AuthenticationSignInWithEmailPassWordEvent) {
       try {
-        await _authenticationRepo.signInWithEmailPassword(
-            event.email, event.password);
+        UserCredential userCredential = await _authenticationRepo
+            .signInWithEmailPassword(event.email, event.password);
+        user = userCredential.user;
 
-        emit(SignInSuccess());
+        _checkProfile(emit);
       } on FirebaseAuthException catch (e) {
         print(e);
 
@@ -48,6 +50,37 @@ class AuthenticationBloc
         print(e);
 
         emit(AuthenticationError(e.message));
+      }
+    }
+  }
+
+  Future<void> _loadProfile(
+      AuthenticationEvent event, Emitter<AuthenticationState> emit) async {
+    if (event is LoadProfileEvent) {
+      user = _authenticationRepo.loadProfile();
+      // user = event.user;
+      _checkProfile(emit);
+    }
+  }
+
+  void _checkProfile(emit) {
+    if (user != null) {
+      for (final providerProfile in user!.providerData) {
+        // ID of the provider (google.com, apple.com, etc.)
+        final provider = providerProfile.providerId;
+
+        // UID specific to the provider
+        final uid = providerProfile.uid;
+
+        // Name, email address, and profile photo URL
+        final name = providerProfile.displayName;
+        final emailAddress = providerProfile.email;
+        final profilePhoto = providerProfile.photoURL;
+        emit(AuthenticationSuccess(
+            uid: uid,
+            name: name,
+            emailAddress: emailAddress,
+            profilePhoto: profilePhoto));
       }
     }
   }

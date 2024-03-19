@@ -1,3 +1,4 @@
+import 'package:ecommerce_mobile/bloc/authentication/authentication_event.dart';
 import 'package:ecommerce_mobile/ui/authentication/sign_in_screen.dart';
 import 'package:ecommerce_mobile/ui/home/home_screen.dart';
 import 'package:ecommerce_mobile/ui/test_screen.dart';
@@ -49,7 +50,7 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   final FlutterLocalization localization = FlutterLocalization.instance;
-
+  late AuthenticationBloc _authenticationBloc;
   @override
   void initState() {
     localization.init(
@@ -60,6 +61,7 @@ class _MyAppState extends State<MyApp> {
       initLanguageCode: 'en',
     );
     localization.onTranslatedLanguage = _onTranslatedLanguage;
+    _authenticationBloc = BlocProvider.of(context);
     super.initState();
   }
 
@@ -79,6 +81,7 @@ class _MyAppState extends State<MyApp> {
         stream: auth.authStateChanges(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
+            _authenticationBloc.add(LoadProfileEvent());
             return const HomeScreen();
           }
           return const SignInScreen();

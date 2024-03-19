@@ -10,7 +10,14 @@ class AuthenticationInitial extends AuthenticationState {
 class AuthenticationLoading extends AuthenticationState {}
 
 //This is the success state of bloc
-class SignInSuccess extends AuthenticationState {}
+class AuthenticationSuccess extends AuthenticationState {
+  String? uid;
+  String? name;
+  String? emailAddress;
+  String? profilePhoto;
+  AuthenticationSuccess(
+      {this.uid, this.name, this.emailAddress, this.profilePhoto});
+}
 
 class SignOutSuccess extends AuthenticationState {}
 

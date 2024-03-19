@@ -51,6 +51,12 @@ class _HomeScreenState extends State<HomeScreen> {
               child: PaddingScreen(
                 child: Column(children: [
                   Text('Home screen'),
+                  if (state is AuthenticationSuccess) ...[
+                    Text(state.uid.toString()),
+                    Text(state.name.toString()),
+                    Text(state.emailAddress.toString()),
+                    Text(state.profilePhoto.toString()),
+                  ],
                   ElevatedButton(
                       onPressed: () async {
                         if (!(state is AuthenticationLoading))
@@ -66,7 +72,8 @@ class _HomeScreenState extends State<HomeScreen> {
       listener: (context, state) async {
         if (state is AuthenticationLoading) {
           // EasyLoading.show();
-        } else if (state is SignInSuccess) {
+        } else if (state is AuthenticationSuccess) {
+          EasyLoading.dismiss();
         } else if (state is AuthenticationError) {
           EasyLoading.dismiss();
 
