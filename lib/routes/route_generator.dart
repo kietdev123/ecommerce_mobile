@@ -1,5 +1,6 @@
 import 'package:ecommerce_mobile/bloc/authentication/authentication_bloc.dart';
-import 'package:ecommerce_mobile/ui/authentication/sign_in_screen.dart';
+import 'package:ecommerce_mobile/ui/authentication/login_screen.dart';
+import 'package:ecommerce_mobile/ui/authentication/sign_up_screen.dart';
 import 'package:ecommerce_mobile/ui/home/home_screen.dart';
 import 'package:ecommerce_mobile/ui/setting/setting_screen.dart';
 import 'package:flutter/material.dart';
@@ -20,9 +21,9 @@ class RouteGenerator {
       //     ),
       //   );
 
-      case SignInScreen.id:
+      case LoginScreen.id:
         return MaterialPageRoute(
-          builder: (_) => const SignInScreen(),
+          builder: (_) => const LoginScreen(),
         );
 
       case SettingScreen.id:
@@ -33,6 +34,11 @@ class RouteGenerator {
       case HomeScreen.id:
         return MaterialPageRoute(
           builder: (_) => const HomeScreen(),
+        );
+
+      case SignUpScreen.id:
+        return MaterialPageRoute(
+          builder: (_) => const SignUpScreen(),
         );
       default:
         return _errorRoute();

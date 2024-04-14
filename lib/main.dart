@@ -1,5 +1,5 @@
 import 'package:ecommerce_mobile/bloc/authentication/authentication_event.dart';
-import 'package:ecommerce_mobile/ui/authentication/sign_in_screen.dart';
+import 'package:ecommerce_mobile/ui/authentication/login_screen.dart';
 import 'package:ecommerce_mobile/ui/home/home_screen.dart';
 import 'package:ecommerce_mobile/ui/test_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -12,6 +12,7 @@ import 'bloc/authentication/authentication_bloc.dart';
 import 'bloc/counter/counter_bloc.dart';
 import 'firebase_options.dart';
 import 'res/app_locale.dart';
+import 'res/resources.dart';
 import 'routes/route_generator.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 
@@ -71,6 +72,8 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
+    final resource = Resources(context);
+
     return MaterialApp(
       // initialRoute: SignInScreen.id,
       onGenerateRoute: RouteGenerator().generateRoute,
@@ -82,9 +85,15 @@ class _MyAppState extends State<MyApp> {
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             _authenticationBloc.add(LoadProfileEvent());
-            return const HomeScreen();
+            return DefaultTextStyle(
+              style: resource.style.textDefault,
+              child: const HomeScreen(),
+            );
           }
-          return const SignInScreen();
+          return DefaultTextStyle(
+            style: resource.style.textDefault,
+            child: const LoginScreen(),
+          );
         },
       ),
     );

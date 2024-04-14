@@ -20,10 +20,15 @@ class FirebaseService {
     }
   }
 
-  Future<void> signUpWithEmailPassword(String email, String password) async {
+  Future<dynamic> signUpWithEmailPassword(
+      String name, String email, String password) async {
     try {
-      await auth.createUserWithEmailAndPassword(
+      final credential = await auth.createUserWithEmailAndPassword(
           email: email, password: password);
+      await credential.user?.updateDisplayName(name);
+      await credential.user
+          ?.updatePhotoURL("https://example.com/jane-q-user/profile.jpg");
+      return credential;
     } catch (e) {
       rethrow;
     }

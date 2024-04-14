@@ -34,6 +34,10 @@ class _HomeScreenState extends State<HomeScreen> {
   late AuthenticationBloc _authenticationBloc;
   @override
   void initState() {
+    Future.delayed(const Duration(seconds: 2), () {
+      EasyLoading.dismiss();
+    });
+
     _authenticationBloc = BlocProvider.of(context);
 
     super.initState();

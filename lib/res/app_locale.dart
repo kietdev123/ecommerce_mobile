@@ -9,6 +9,7 @@ mixin AppLocale {
   static const String pleaseEnterAEmail = 'pleaseEnterAEmail';
   static const String enterValidEmail = 'enterValidEmail';
   static const String orSignInWithSocialAccount = 'orSignInWithSocialAccount';
+  static const String signIn = 'signIn';
 
   static Map<String, dynamic> EN = EnglishStrings().toMap();
   static Map<String, dynamic> VN = VietNamStrings().toMap();

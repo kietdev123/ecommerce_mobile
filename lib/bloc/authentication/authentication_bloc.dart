@@ -12,12 +12,13 @@ class AuthenticationBloc
   //Authentication repo instance
   final _authenticationRepo = AuthenticationRepoImp();
   int value = 0;
-  late final FirebaseAuth auth;
+  // late final FirebaseAuth auth;
   User? user;
   AuthenticationBloc() : super(AuthenticationInitial(0)) {
     on<AuthenticationSignInWithEmailPassWordEvent>(_signIn);
     on<SignOutEvent>(_logout);
     on<LoadProfileEvent>(_loadProfile);
+    on<SignUpEvent>(_signUp);
   }
 
   Future<void> _signIn(
@@ -46,10 +47,10 @@ class AuthenticationBloc
         await _authenticationRepo.signOut();
 
         emit(SignOutSuccess());
-      } on FirebaseAuthException catch (e) {
+      } catch (e) {
         print(e);
 
-        emit(AuthenticationError(e.message));
+        emit(AuthenticationError(e.toString()));
       }
     }
   }
@@ -81,6 +82,27 @@ class AuthenticationBloc
             name: name,
             emailAddress: emailAddress,
             profilePhoto: profilePhoto));
+      }
+    }
+  }
+
+  Future<void> _signUp(
+      AuthenticationEvent event, Emitter<AuthenticationState> emit) async {
+    emit(AuthenticationLoading());
+    if (event is SignUpEvent) {
+      try {
+        UserCredential userCredential = await _authenticationRepo.signUp(
+            event.name, event.email, event.password);
+        user = userCredential.user;
+        // _checkProfile(emit);
+
+        await _authenticationRepo.signOut();
+
+        emit(SignUpSuccess());
+      } catch (e) {
+        print(e);
+
+        emit(AuthenticationError(e.toString()));
       }
     }
   }

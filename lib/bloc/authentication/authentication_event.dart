@@ -8,6 +8,13 @@ class AuthenticationSignInWithEmailPassWordEvent extends AuthenticationEvent {
   AuthenticationSignInWithEmailPassWordEvent(this.email, this.password);
 }
 
+class SignUpEvent extends AuthenticationEvent {
+  final String name;
+  final String email;
+  final String password;
+  SignUpEvent(this.name, this.email, this.password);
+}
+
 class SignOutEvent extends AuthenticationEvent {}
 
 class LoadProfileEvent extends AuthenticationEvent {}

@@ -34,4 +34,15 @@ class AuthenticationRepoImp extends AuthenticationRepo {
       rethrow;
     }
   }
+
+  @override
+  Future signUp(String name, String email, String password) async {
+    try {
+      dynamic response =
+          await _fireBaseService.signUpWithEmailPassword(name, email, password);
+      return response;
+    } catch (e) {
+      rethrow;
+    }
+  }
 }

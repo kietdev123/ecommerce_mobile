@@ -2,11 +2,13 @@ import 'package:ecommerce_mobile/bloc/authentication/authentication_bloc.dart';
 import 'package:ecommerce_mobile/bloc/authentication/authentication_event.dart';
 import 'package:ecommerce_mobile/bloc/authentication/authentication_state.dart';
 import 'package:ecommerce_mobile/res/resources.dart';
+import 'package:ecommerce_mobile/ui/authentication/login_screen.dart';
 import 'package:ecommerce_mobile/ui/setting/setting_screen.dart';
 import 'package:ecommerce_mobile/ui/utils/utils.dart';
 import 'package:ecommerce_mobile/ui/widgets/custom_card.dart';
 import 'package:ecommerce_mobile/ui/widgets/padding_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -16,25 +18,30 @@ import 'package:ionicons/ionicons.dart';
 
 import '../../res/app_locale.dart';
 
-class SignInScreen extends StatefulWidget {
-  static const String id = "sign_in_screen";
-  const SignInScreen({super.key});
+class SignUpScreen extends StatefulWidget {
+  static const String id = "sign_up_screen";
+  const SignUpScreen({super.key});
 
   @override
-  State<SignInScreen> createState() => _SignInScreenState();
+  State<SignUpScreen> createState() => _SignUpScreenState();
 }
 
-class _SignInScreenState extends State<SignInScreen> {
+class _SignUpScreenState extends State<SignUpScreen> {
   final _formKey = GlobalKey<FormState>();
   final _emailTextController = TextEditingController();
   final _passwordTextController = TextEditingController();
+  final _nameTextController = TextEditingController();
+
   bool isLoading = false;
-  bool isObscure = true;
+  bool isObscurePassword = true;
 
   late AuthenticationBloc _authenticationBloc;
 
   @override
   void initState() {
+    Future.delayed(const Duration(seconds: 2), () {
+      EasyLoading.dismiss();
+    });
     _authenticationBloc = BlocProvider.of(context);
 
     super.initState();
@@ -56,14 +63,42 @@ class _SignInScreenState extends State<SignInScreen> {
                   // Add TextFormFields and ElevatedButton here.
 
                   const SizedBox(height: 50),
-                  const Icon(Icons.arrow_back_ios),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.of(context, rootNavigator: true).pop();
+                    },
+                    child: const Icon(Icons.arrow_back_ios),
+                  ),
                   const SizedBox(height: 12),
                   Text(
-                    AppLocale.signUp.getString(context),
+                    "Sign Up",
                     style: const TextStyle(
                         fontWeight: FontWeight.bold, fontSize: 30),
                   ),
                   const SizedBox(height: 80),
+
+                  CustomCard(
+                    child: TextFormField(
+                      controller: _nameTextController,
+                      // The validator receives the text that the user has entered.
+                      cursorColor: resource.color.colorPrimaryText,
+                      maxLength: 30,
+                      autovalidateMode: AutovalidateMode.onUserInteraction,
+                      decoration: InputDecoration(
+                        // border: InputBorder.none,
+                        labelStyle:
+                            TextStyle(color: resource.color.colorPrimaryText),
+                        focusColor: resource.color.colorPrimaryText,
+                        labelText: "Name",
+                      ),
+                      validator: (value) {
+                        if (value == '') return 'Required';
+                        return null;
+                      },
+                    ),
+                  ),
+
+                  const SizedBox(height: 12),
 
                   CustomCard(
                     child: TextFormField(
@@ -94,27 +129,31 @@ class _SignInScreenState extends State<SignInScreen> {
                       autovalidateMode: AutovalidateMode.onUserInteraction,
                       maxLength: 30,
                       decoration: InputDecoration(
-                        labelText: AppLocale.password.getString(context),
+                        labelText: 'Password',
                         labelStyle:
                             TextStyle(color: resource.color.colorPrimaryText),
-                        suffixIcon: isObscure
+                        suffixIcon: isObscurePassword
                             ? IconButton(
                                 onPressed: () {
                                   setState(() {
-                                    isObscure = !isObscure;
+                                    isObscurePassword = !isObscurePassword;
                                   });
                                 },
                                 icon: const Icon(Ionicons.eye_off))
                             : IconButton(
                                 onPressed: () {
                                   setState(() {
-                                    isObscure = !isObscure;
+                                    isObscurePassword = !isObscurePassword;
                                   });
                                 },
                                 icon: const Icon(Ionicons.eye),
                               ),
                       ),
-                      obscureText: isObscure,
+                      validator: (value) {
+                        if (value == '') return 'Required';
+                        return null;
+                      },
+                      obscureText: isObscurePassword,
                     ),
                   ),
 
@@ -124,9 +163,16 @@ class _SignInScreenState extends State<SignInScreen> {
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       Text(AppLocale.alreadyHaveAnAccount.getString(context)),
-                      Icon(
-                        Icons.arrow_right_alt_outlined,
-                        color: resource.color.colorPrimary,
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.of(context, rootNavigator: true).pushNamed(
+                            LoginScreen.id,
+                          );
+                        },
+                        child: Icon(
+                          Icons.arrow_right_alt_outlined,
+                          color: resource.color.colorPrimary,
+                        ),
                       )
                     ],
                   ),
@@ -145,15 +191,16 @@ class _SignInScreenState extends State<SignInScreen> {
                           ),
                         ),
                         onPressed: () async {
-                          if (state is AuthenticationSuccess) return;
                           if (state is AuthenticationLoading) return;
                           if (_formKey.currentState!.validate()) {
+                            var name = _nameTextController.text.trim();
                             var emailAddress = _emailTextController.text.trim();
                             var password = _passwordTextController.text.trim();
                             EasyLoading.show();
 
                             _authenticationBloc.add(
-                              AuthenticationSignInWithEmailPassWordEvent(
+                              SignUpEvent(
+                                name,
                                 emailAddress,
                                 password,
                               ),
@@ -161,7 +208,7 @@ class _SignInScreenState extends State<SignInScreen> {
                           }
                         },
                         child: Text(
-                          AppLocale.signUp.getString(context).toUpperCase(),
+                          'Sign up',
                           style: TextStyle(
                               color: resource.color.colorInPrimaryBackground),
                         ),
@@ -169,14 +216,13 @@ class _SignInScreenState extends State<SignInScreen> {
                     },
                     listener: (context, state) async {
                       if (state is AuthenticationLoading) {
-                      } else if (state is AuthenticationSuccess) {
+                      } else if (state is SignUpSuccess) {
                         EasyLoading.dismiss();
-                        EasyLoading.showSuccess('Login successful');
-                        Future.delayed(const Duration(seconds: 2), () {
-                          Navigator.of(context, rootNavigator: true).pushNamed(
-                            SettingScreen.id,
-                          );
-                        });
+                        EasyLoading.showSuccess('Sign up successful',
+                            duration: const Duration(seconds: 2));
+                        Navigator.of(context, rootNavigator: true).pushNamed(
+                          LoginScreen.id,
+                        );
                       } else if (state is AuthenticationError) {
                         EasyLoading.dismiss();
 
@@ -188,8 +234,10 @@ class _SignInScreenState extends State<SignInScreen> {
 
                   const SizedBox(height: 50),
                   Center(
-                      child: Text(AppLocale.orSignInWithSocialAccount
-                          .getString(context))),
+                    child: Text(
+                      'Or sign up with a social account',
+                    ),
+                  ),
                   const SizedBox(height: 12),
                   Center(
                       child: IconButton(

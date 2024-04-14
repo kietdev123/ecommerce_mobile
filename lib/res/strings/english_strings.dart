@@ -6,7 +6,7 @@ class EnglishStrings extends Strings {
 
   @override
   // TODO: implement signIn
-  String get signIn => "Sign Up";
+  String get signIn => "Sign In";
 
   @override
   // TODO: implement password
