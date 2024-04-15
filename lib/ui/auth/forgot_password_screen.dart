@@ -9,6 +9,7 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 import '../../bloc/authentication/authentication_bloc.dart';
 import '../../res/resources.dart';
+import '../widgets/back_button.dart';
 import '../widgets/custom_card.dart';
 import '../widgets/padding_screen.dart';
 
@@ -52,12 +53,10 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                   // Add TextFormFields and ElevatedButton here.
 
                   const SizedBox(height: 50),
-
-                  Text(
-                    'Forgot password',
-                    style: const TextStyle(
-                        fontWeight: FontWeight.bold, fontSize: 30),
-                  ),
+                  const AppBackButton(),
+                  const SizedBox(height: 12),
+                  Text('Forgot password',
+                      style: resource.style.headingTextStyle),
                   const SizedBox(height: 80),
 
                   CustomCard(

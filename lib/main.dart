@@ -82,17 +82,24 @@ class _MyAppState extends State<MyApp> {
       supportedLocales: localization.supportedLocales,
       localizationsDelegates: localization.localizationsDelegates,
       builder: EasyLoading.init(),
+      theme: ThemeData(
+        textTheme: TextTheme(
+          bodyLarge: resource.style.textDefault,
+          bodyMedium: resource.style.textDefault,
+          bodySmall: resource.style.textDefault,
+        ),
+      ),
       home: StreamBuilder<User?>(
         stream: auth.authStateChanges(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             _authenticationBloc.add(LoadProfileEvent());
-            return DefaultTextStyle(
+            return new DefaultTextStyle(
               style: resource.style.textDefault,
               child: const HomeScreen(),
             );
           }
-          return DefaultTextStyle(
+          return new DefaultTextStyle(
             style: resource.style.textDefault,
             child: const LoginScreen(),
           );

@@ -17,6 +17,7 @@ import 'package:flutter_localization/flutter_localization.dart';
 import 'package:ionicons/ionicons.dart';
 
 import '../../res/app_locale.dart';
+import '../widgets/back_button.dart';
 
 class SignUpScreen extends StatefulWidget {
   static const String id = "sign_up_screen";
@@ -63,18 +64,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   // Add TextFormFields and ElevatedButton here.
 
                   const SizedBox(height: 50),
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.of(context, rootNavigator: true).pop();
-                    },
-                    child: const Icon(Icons.arrow_back_ios),
-                  ),
+                  const AppBackButton(),
                   const SizedBox(height: 12),
-                  Text(
-                    "Sign Up",
-                    style: const TextStyle(
-                        fontWeight: FontWeight.bold, fontSize: 30),
-                  ),
+                  Text("Sign Up", style: resource.style.headingTextStyle),
                   const SizedBox(height: 80),
 
                   CustomCard(

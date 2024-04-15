@@ -26,10 +26,10 @@ class AppDimension extends Dimensions {
   double get lightElevation => 4;
 
   @override
-  double get bigText => 22;
+  double get bigText => 30;
 
   @override
-  double get defaultText => 18;
+  double get defaultText => 14;
 
   @override
   double get mediumText => 16;

@@ -5,9 +5,17 @@ import '../../res/dimentions/app_dimension.dart';
 
 class AppStyle {
   TextStyle headingTextStyle = TextStyle(
-      fontSize: AppDimension().defaultText,
-      fontWeight: FontWeight.bold,
-      color: AppColors().colorPrimaryText);
+    fontSize: AppDimension().bigText,
+    fontWeight: FontWeight.w500,
+    color: AppColors().colorPrimaryText,
+    // shadows: [
+    //   Shadow(
+    //     blurRadius: 1.0,
+    //     color: Color.fromARGB(195, 100, 100, 100),
+    //     offset: Offset(0, 2),
+    //   ),
+    // ],
+  );
 
   TextStyle subHeadingTextStyle = TextStyle(
       fontSize: AppDimension().mediumText,
@@ -50,8 +58,8 @@ class AppStyle {
       color: AppColors().colorPrimary);
 
   TextStyle textDefault = TextStyle(
-      fontSize: AppDimension().mediumText,
-      fontWeight: FontWeight.w600,
+      fontSize: AppDimension().defaultText,
+      fontWeight: FontWeight.w400,
       color: AppColors().colorPrimaryText);
 
   IconThemeData appbarIconTheme =

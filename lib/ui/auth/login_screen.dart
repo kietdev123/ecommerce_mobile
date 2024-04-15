@@ -64,11 +64,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
                   const SizedBox(height: 50),
 
-                  Text(
-                    'Login',
-                    style: const TextStyle(
-                        fontWeight: FontWeight.bold, fontSize: 30),
-                  ),
+                  Text('Login', style: resource.style.headingTextStyle),
                   const SizedBox(height: 80),
 
                   CustomCard(
@@ -189,10 +185,14 @@ class _LoginScreenState extends State<LoginScreen> {
                         EasyLoading.dismiss();
                         EasyLoading.showSuccess('Login successful',
                             duration: const Duration(seconds: 2));
-                        Navigator.of(context, rootNavigator: true).pushNamed(
-                          HomeScreen.id,
-                        );
-                        Future.delayed(const Duration(seconds: 2), () {});
+                        // Navigator.of(context, rootNavigator: true).pushNamed(
+                        //   HomeScreen.id,
+                        // );
+                        Navigator.pushAndRemoveUntil(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const HomeScreen()),
+                            (route) => false);
                       } else if (state is AuthenticationError) {
                         EasyLoading.dismiss();
 
