@@ -23,6 +23,8 @@ class SignOutSuccess extends AuthenticationState {}
 
 class SignUpSuccess extends AuthenticationState {}
 
+class ForgotPasswordSuccess extends AuthenticationState {}
+
 //This is the error state of bloc
 class AuthenticationError extends AuthenticationState {
   late final dynamic error;

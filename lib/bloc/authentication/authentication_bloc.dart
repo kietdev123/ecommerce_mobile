@@ -19,6 +19,7 @@ class AuthenticationBloc
     on<SignOutEvent>(_logout);
     on<LoadProfileEvent>(_loadProfile);
     on<SignUpEvent>(_signUp);
+    on<ForgotPasswordEvent>(_forgotPassword);
   }
 
   Future<void> _signIn(
@@ -99,6 +100,22 @@ class AuthenticationBloc
         await _authenticationRepo.signOut();
 
         emit(SignUpSuccess());
+      } catch (e) {
+        print(e);
+
+        emit(AuthenticationError(e.toString()));
+      }
+    }
+  }
+
+  Future<void> _forgotPassword(
+      AuthenticationEvent event, Emitter<AuthenticationState> emit) async {
+    emit(AuthenticationLoading());
+    if (event is ForgotPasswordEvent) {
+      try {
+        await _authenticationRepo.forgotPassword(event.email);
+
+        emit(ForgotPasswordSuccess());
       } catch (e) {
         print(e);
 

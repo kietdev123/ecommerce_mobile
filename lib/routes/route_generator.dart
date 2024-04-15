@@ -1,6 +1,7 @@
 import 'package:ecommerce_mobile/bloc/authentication/authentication_bloc.dart';
-import 'package:ecommerce_mobile/ui/authentication/login_screen.dart';
-import 'package:ecommerce_mobile/ui/authentication/sign_up_screen.dart';
+import 'package:ecommerce_mobile/ui/auth/forgot_password_screen.dart';
+import 'package:ecommerce_mobile/ui/auth/login_screen.dart';
+import 'package:ecommerce_mobile/ui/auth/sign_up_screen.dart';
 import 'package:ecommerce_mobile/ui/home/home_screen.dart';
 import 'package:ecommerce_mobile/ui/setting/setting_screen.dart';
 import 'package:flutter/material.dart';
@@ -39,6 +40,11 @@ class RouteGenerator {
       case SignUpScreen.id:
         return MaterialPageRoute(
           builder: (_) => const SignUpScreen(),
+        );
+
+      case ForgotPasswordScreen.id:
+        return MaterialPageRoute(
+          builder: (_) => const ForgotPasswordScreen(),
         );
       default:
         return _errorRoute();

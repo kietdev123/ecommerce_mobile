@@ -15,6 +15,11 @@ class SignUpEvent extends AuthenticationEvent {
   SignUpEvent(this.name, this.email, this.password);
 }
 
+class ForgotPasswordEvent extends AuthenticationEvent {
+  final String email;
+  ForgotPasswordEvent(this.email);
+}
+
 class SignOutEvent extends AuthenticationEvent {}
 
 class LoadProfileEvent extends AuthenticationEvent {}

@@ -2,7 +2,9 @@ import 'package:ecommerce_mobile/bloc/authentication/authentication_bloc.dart';
 import 'package:ecommerce_mobile/bloc/authentication/authentication_event.dart';
 import 'package:ecommerce_mobile/bloc/authentication/authentication_state.dart';
 import 'package:ecommerce_mobile/res/resources.dart';
-import 'package:ecommerce_mobile/ui/authentication/login_screen.dart';
+import 'package:ecommerce_mobile/ui/auth/forgot_password_screen.dart';
+import 'package:ecommerce_mobile/ui/auth/sign_up_screen.dart';
+import 'package:ecommerce_mobile/ui/home/home_screen.dart';
 import 'package:ecommerce_mobile/ui/setting/setting_screen.dart';
 import 'package:ecommerce_mobile/ui/utils/utils.dart';
 import 'package:ecommerce_mobile/ui/widgets/custom_card.dart';
@@ -18,22 +20,20 @@ import 'package:ionicons/ionicons.dart';
 
 import '../../res/app_locale.dart';
 
-class SignUpScreen extends StatefulWidget {
-  static const String id = "sign_up_screen";
-  const SignUpScreen({super.key});
+class LoginScreen extends StatefulWidget {
+  static const String id = "login_screen";
+  const LoginScreen({super.key});
 
   @override
-  State<SignUpScreen> createState() => _SignUpScreenState();
+  State<LoginScreen> createState() => _LoginScreenState();
 }
 
-class _SignUpScreenState extends State<SignUpScreen> {
+class _LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
   final _emailTextController = TextEditingController();
   final _passwordTextController = TextEditingController();
-  final _nameTextController = TextEditingController();
-
   bool isLoading = false;
-  bool isObscurePassword = true;
+  bool isObscure = true;
 
   late AuthenticationBloc _authenticationBloc;
 
@@ -63,42 +63,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   // Add TextFormFields and ElevatedButton here.
 
                   const SizedBox(height: 50),
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.of(context, rootNavigator: true).pop();
-                    },
-                    child: const Icon(Icons.arrow_back_ios),
-                  ),
-                  const SizedBox(height: 12),
+
                   Text(
-                    "Sign Up",
+                    'Login',
                     style: const TextStyle(
                         fontWeight: FontWeight.bold, fontSize: 30),
                   ),
                   const SizedBox(height: 80),
-
-                  CustomCard(
-                    child: TextFormField(
-                      controller: _nameTextController,
-                      // The validator receives the text that the user has entered.
-                      cursorColor: resource.color.colorPrimaryText,
-                      maxLength: 30,
-                      autovalidateMode: AutovalidateMode.onUserInteraction,
-                      decoration: InputDecoration(
-                        // border: InputBorder.none,
-                        labelStyle:
-                            TextStyle(color: resource.color.colorPrimaryText),
-                        focusColor: resource.color.colorPrimaryText,
-                        labelText: "Name",
-                      ),
-                      validator: (value) {
-                        if (value == '') return 'Required';
-                        return null;
-                      },
-                    ),
-                  ),
-
-                  const SizedBox(height: 12),
 
                   CustomCard(
                     child: TextFormField(
@@ -129,31 +100,31 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       autovalidateMode: AutovalidateMode.onUserInteraction,
                       maxLength: 30,
                       decoration: InputDecoration(
-                        labelText: 'Password',
+                        labelText: AppLocale.password.getString(context),
                         labelStyle:
                             TextStyle(color: resource.color.colorPrimaryText),
-                        suffixIcon: isObscurePassword
+                        suffixIcon: isObscure
                             ? IconButton(
                                 onPressed: () {
                                   setState(() {
-                                    isObscurePassword = !isObscurePassword;
+                                    isObscure = !isObscure;
                                   });
                                 },
                                 icon: const Icon(Ionicons.eye_off))
                             : IconButton(
                                 onPressed: () {
                                   setState(() {
-                                    isObscurePassword = !isObscurePassword;
+                                    isObscure = !isObscure;
                                   });
                                 },
                                 icon: const Icon(Ionicons.eye),
                               ),
                       ),
+                      obscureText: isObscure,
                       validator: (value) {
                         if (value == '') return 'Required';
                         return null;
                       },
-                      obscureText: isObscurePassword,
                     ),
                   ),
 
@@ -162,14 +133,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      Text(AppLocale.alreadyHaveAnAccount.getString(context)),
-                      GestureDetector(
-                        onTap: () {
+                      Text('Forgot your password?'),
+                      IconButton(
+                        onPressed: () {
                           Navigator.of(context, rootNavigator: true).pushNamed(
-                            LoginScreen.id,
+                            ForgotPasswordScreen.id,
                           );
                         },
-                        child: Icon(
+                        icon: Icon(
                           Icons.arrow_right_alt_outlined,
                           color: resource.color.colorPrimary,
                         ),
@@ -193,14 +164,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         onPressed: () async {
                           if (state is AuthenticationLoading) return;
                           if (_formKey.currentState!.validate()) {
-                            var name = _nameTextController.text.trim();
                             var emailAddress = _emailTextController.text.trim();
                             var password = _passwordTextController.text.trim();
                             EasyLoading.show();
 
                             _authenticationBloc.add(
-                              SignUpEvent(
-                                name,
+                              AuthenticationSignInWithEmailPassWordEvent(
                                 emailAddress,
                                 password,
                               ),
@@ -208,7 +177,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           }
                         },
                         child: Text(
-                          'Sign up',
+                          'Login',
                           style: TextStyle(
                               color: resource.color.colorInPrimaryBackground),
                         ),
@@ -216,13 +185,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     },
                     listener: (context, state) async {
                       if (state is AuthenticationLoading) {
-                      } else if (state is SignUpSuccess) {
+                      } else if (state is AuthenticationSuccess) {
                         EasyLoading.dismiss();
-                        EasyLoading.showSuccess('Sign up successful',
+                        EasyLoading.showSuccess('Login successful',
                             duration: const Duration(seconds: 2));
                         Navigator.of(context, rootNavigator: true).pushNamed(
-                          LoginScreen.id,
+                          HomeScreen.id,
                         );
+                        Future.delayed(const Duration(seconds: 2), () {});
                       } else if (state is AuthenticationError) {
                         EasyLoading.dismiss();
 
@@ -233,11 +203,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   ),
 
                   const SizedBox(height: 50),
-                  Center(
-                    child: Text(
-                      'Or sign up with a social account',
-                    ),
-                  ),
+                  Center(child: Text("Or login in with a social account")),
                   const SizedBox(height: 12),
                   Center(
                       child: IconButton(
@@ -247,6 +213,28 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       width: 36,
                     ),
                   )),
+                  const SizedBox(height: 46),
+
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text(
+                        "Don't have an account? ",
+                      ),
+                      GestureDetector(
+                          onTap: () {
+                            Navigator.of(context, rootNavigator: true)
+                                .pushNamed(
+                              SignUpScreen.id,
+                            );
+                          },
+                          child: Text(
+                            "Sign up",
+                            style: resource.style.textPrimary,
+                          )),
+                    ],
+                  )
                 ],
               ),
             ),

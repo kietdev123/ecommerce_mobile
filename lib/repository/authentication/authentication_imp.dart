@@ -45,4 +45,13 @@ class AuthenticationRepoImp extends AuthenticationRepo {
       rethrow;
     }
   }
+
+  @override
+  Future forgotPassword(String email) async {
+    try {
+      await _fireBaseService.forgotPassword(email);
+    } catch (e) {
+      rethrow;
+    }
+  }
 }

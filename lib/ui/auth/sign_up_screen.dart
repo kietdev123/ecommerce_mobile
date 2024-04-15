@@ -2,8 +2,7 @@ import 'package:ecommerce_mobile/bloc/authentication/authentication_bloc.dart';
 import 'package:ecommerce_mobile/bloc/authentication/authentication_event.dart';
 import 'package:ecommerce_mobile/bloc/authentication/authentication_state.dart';
 import 'package:ecommerce_mobile/res/resources.dart';
-import 'package:ecommerce_mobile/ui/authentication/sign_up_screen.dart';
-import 'package:ecommerce_mobile/ui/home/home_screen.dart';
+import 'package:ecommerce_mobile/ui/auth/login_screen.dart';
 import 'package:ecommerce_mobile/ui/setting/setting_screen.dart';
 import 'package:ecommerce_mobile/ui/utils/utils.dart';
 import 'package:ecommerce_mobile/ui/widgets/custom_card.dart';
@@ -19,20 +18,22 @@ import 'package:ionicons/ionicons.dart';
 
 import '../../res/app_locale.dart';
 
-class LoginScreen extends StatefulWidget {
-  static const String id = "login_screen";
-  const LoginScreen({super.key});
+class SignUpScreen extends StatefulWidget {
+  static const String id = "sign_up_screen";
+  const SignUpScreen({super.key});
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<SignUpScreen> createState() => _SignUpScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _SignUpScreenState extends State<SignUpScreen> {
   final _formKey = GlobalKey<FormState>();
   final _emailTextController = TextEditingController();
   final _passwordTextController = TextEditingController();
+  final _nameTextController = TextEditingController();
+
   bool isLoading = false;
-  bool isObscure = true;
+  bool isObscurePassword = true;
 
   late AuthenticationBloc _authenticationBloc;
 
@@ -62,13 +63,42 @@ class _LoginScreenState extends State<LoginScreen> {
                   // Add TextFormFields and ElevatedButton here.
 
                   const SizedBox(height: 50),
-
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.of(context, rootNavigator: true).pop();
+                    },
+                    child: const Icon(Icons.arrow_back_ios),
+                  ),
+                  const SizedBox(height: 12),
                   Text(
-                    'Login',
+                    "Sign Up",
                     style: const TextStyle(
                         fontWeight: FontWeight.bold, fontSize: 30),
                   ),
                   const SizedBox(height: 80),
+
+                  CustomCard(
+                    child: TextFormField(
+                      controller: _nameTextController,
+                      // The validator receives the text that the user has entered.
+                      cursorColor: resource.color.colorPrimaryText,
+                      maxLength: 30,
+                      autovalidateMode: AutovalidateMode.onUserInteraction,
+                      decoration: InputDecoration(
+                        // border: InputBorder.none,
+                        labelStyle:
+                            TextStyle(color: resource.color.colorPrimaryText),
+                        focusColor: resource.color.colorPrimaryText,
+                        labelText: "Name",
+                      ),
+                      validator: (value) {
+                        if (value == '') return 'Required';
+                        return null;
+                      },
+                    ),
+                  ),
+
+                  const SizedBox(height: 12),
 
                   CustomCard(
                     child: TextFormField(
@@ -99,31 +129,31 @@ class _LoginScreenState extends State<LoginScreen> {
                       autovalidateMode: AutovalidateMode.onUserInteraction,
                       maxLength: 30,
                       decoration: InputDecoration(
-                        labelText: AppLocale.password.getString(context),
+                        labelText: 'Password',
                         labelStyle:
                             TextStyle(color: resource.color.colorPrimaryText),
-                        suffixIcon: isObscure
+                        suffixIcon: isObscurePassword
                             ? IconButton(
                                 onPressed: () {
                                   setState(() {
-                                    isObscure = !isObscure;
+                                    isObscurePassword = !isObscurePassword;
                                   });
                                 },
                                 icon: const Icon(Ionicons.eye_off))
                             : IconButton(
                                 onPressed: () {
                                   setState(() {
-                                    isObscure = !isObscure;
+                                    isObscurePassword = !isObscurePassword;
                                   });
                                 },
                                 icon: const Icon(Ionicons.eye),
                               ),
                       ),
-                      obscureText: isObscure,
                       validator: (value) {
                         if (value == '') return 'Required';
                         return null;
                       },
+                      obscureText: isObscurePassword,
                     ),
                   ),
 
@@ -132,10 +162,17 @@ class _LoginScreenState extends State<LoginScreen> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      Text('Forgot your password?'),
-                      Icon(
-                        Icons.arrow_right_alt_outlined,
-                        color: resource.color.colorPrimary,
+                      Text(AppLocale.alreadyHaveAnAccount.getString(context)),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.of(context, rootNavigator: true).pushNamed(
+                            LoginScreen.id,
+                          );
+                        },
+                        child: Icon(
+                          Icons.arrow_right_alt_outlined,
+                          color: resource.color.colorPrimary,
+                        ),
                       )
                     ],
                   ),
@@ -156,12 +193,14 @@ class _LoginScreenState extends State<LoginScreen> {
                         onPressed: () async {
                           if (state is AuthenticationLoading) return;
                           if (_formKey.currentState!.validate()) {
+                            var name = _nameTextController.text.trim();
                             var emailAddress = _emailTextController.text.trim();
                             var password = _passwordTextController.text.trim();
                             EasyLoading.show();
 
                             _authenticationBloc.add(
-                              AuthenticationSignInWithEmailPassWordEvent(
+                              SignUpEvent(
+                                name,
                                 emailAddress,
                                 password,
                               ),
@@ -169,7 +208,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           }
                         },
                         child: Text(
-                          'Login',
+                          'Sign up',
                           style: TextStyle(
                               color: resource.color.colorInPrimaryBackground),
                         ),
@@ -177,14 +216,13 @@ class _LoginScreenState extends State<LoginScreen> {
                     },
                     listener: (context, state) async {
                       if (state is AuthenticationLoading) {
-                      } else if (state is AuthenticationSuccess) {
+                      } else if (state is SignUpSuccess) {
                         EasyLoading.dismiss();
-                        EasyLoading.showSuccess('Login successful',
+                        EasyLoading.showSuccess('Sign up successful',
                             duration: const Duration(seconds: 2));
                         Navigator.of(context, rootNavigator: true).pushNamed(
-                          HomeScreen.id,
+                          LoginScreen.id,
                         );
-                        Future.delayed(const Duration(seconds: 2), () {});
                       } else if (state is AuthenticationError) {
                         EasyLoading.dismiss();
 
@@ -195,7 +233,11 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
 
                   const SizedBox(height: 50),
-                  Center(child: Text("Or login in with a social account")),
+                  Center(
+                    child: Text(
+                      'Or sign up with a social account',
+                    ),
+                  ),
                   const SizedBox(height: 12),
                   Center(
                       child: IconButton(
@@ -205,28 +247,6 @@ class _LoginScreenState extends State<LoginScreen> {
                       width: 36,
                     ),
                   )),
-                  const SizedBox(height: 46),
-
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Text(
-                        "Don't have an account? ",
-                      ),
-                      GestureDetector(
-                          onTap: () {
-                            Navigator.of(context, rootNavigator: true)
-                                .pushNamed(
-                              SignUpScreen.id,
-                            );
-                          },
-                          child: Text(
-                            "Sign up",
-                            style: resource.style.textPrimary,
-                          )),
-                    ],
-                  )
                 ],
               ),
             ),

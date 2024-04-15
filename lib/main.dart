@@ -1,5 +1,5 @@
 import 'package:ecommerce_mobile/bloc/authentication/authentication_event.dart';
-import 'package:ecommerce_mobile/ui/authentication/login_screen.dart';
+import 'package:ecommerce_mobile/ui/auth/login_screen.dart';
 import 'package:ecommerce_mobile/ui/home/home_screen.dart';
 import 'package:ecommerce_mobile/ui/test_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -25,6 +25,8 @@ Future<void> main() async {
   app = await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+
+  await FirebaseAuth.instance.setLanguageCode("vn");
 
   auth = FirebaseAuth.instanceFor(app: app);
   runApp(
