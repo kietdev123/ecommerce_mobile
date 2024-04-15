@@ -29,7 +29,7 @@ class AuthenticationRepoImp extends AuthenticationRepo {
   @override
   User? loadProfile() {
     try {
-      _fireBaseService.loadProfile();
+      return _fireBaseService.loadProfile();
     } catch (e) {
       rethrow;
     }

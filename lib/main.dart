@@ -1,6 +1,7 @@
 import 'package:ecommerce_mobile/bloc/authentication/authentication_event.dart';
 import 'package:ecommerce_mobile/ui/auth/login_screen.dart';
-import 'package:ecommerce_mobile/ui/home/home_screen.dart';
+import 'package:ecommerce_mobile/ui/main/home/home_screen.dart';
+import 'package:ecommerce_mobile/ui/main/main_screen.dart';
 import 'package:ecommerce_mobile/ui/test_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -96,7 +97,7 @@ class _MyAppState extends State<MyApp> {
             _authenticationBloc.add(LoadProfileEvent());
             return new DefaultTextStyle(
               style: resource.style.textDefault,
-              child: const HomeScreen(),
+              child: const MainScreen(),
             );
           }
           return new DefaultTextStyle(

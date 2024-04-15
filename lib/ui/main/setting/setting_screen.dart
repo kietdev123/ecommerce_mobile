@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_localization/flutter_localization.dart';
 
-import '../../main.dart';
-import '../../res/app_locale.dart';
+import '../../../main.dart';
+import '../../../res/app_locale.dart';
 
 class SettingScreen extends StatefulWidget {
   static const String id = "setting_screen";

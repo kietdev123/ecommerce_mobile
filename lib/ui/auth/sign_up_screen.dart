@@ -3,7 +3,7 @@ import 'package:ecommerce_mobile/bloc/authentication/authentication_event.dart';
 import 'package:ecommerce_mobile/bloc/authentication/authentication_state.dart';
 import 'package:ecommerce_mobile/res/resources.dart';
 import 'package:ecommerce_mobile/ui/auth/login_screen.dart';
-import 'package:ecommerce_mobile/ui/setting/setting_screen.dart';
+import 'package:ecommerce_mobile/ui/main/setting/setting_screen.dart';
 import 'package:ecommerce_mobile/ui/utils/utils.dart';
 import 'package:ecommerce_mobile/ui/widgets/custom_card.dart';
 import 'package:ecommerce_mobile/ui/widgets/padding_screen.dart';

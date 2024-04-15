@@ -4,8 +4,9 @@ import 'package:ecommerce_mobile/bloc/authentication/authentication_state.dart';
 import 'package:ecommerce_mobile/res/resources.dart';
 import 'package:ecommerce_mobile/ui/auth/forgot_password_screen.dart';
 import 'package:ecommerce_mobile/ui/auth/sign_up_screen.dart';
-import 'package:ecommerce_mobile/ui/home/home_screen.dart';
-import 'package:ecommerce_mobile/ui/setting/setting_screen.dart';
+import 'package:ecommerce_mobile/ui/main/home/home_screen.dart';
+import 'package:ecommerce_mobile/ui/main/main_screen.dart';
+import 'package:ecommerce_mobile/ui/main/setting/setting_screen.dart';
 import 'package:ecommerce_mobile/ui/utils/utils.dart';
 import 'package:ecommerce_mobile/ui/widgets/custom_card.dart';
 import 'package:ecommerce_mobile/ui/widgets/padding_screen.dart';
@@ -191,7 +192,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         Navigator.pushAndRemoveUntil(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => const HomeScreen()),
+                                builder: (context) => const MainScreen()),
                             (route) => false);
                       } else if (state is AuthenticationError) {
                         EasyLoading.dismiss();
