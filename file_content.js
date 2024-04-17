@@ -31,9 +31,9 @@ class ${className}Bloc extends Bloc<${className}Event, ${className}State> {
                 .get${className}();
 
             emit(${className}Success());
-          } on FirebaseAuthException catch (e) {
+          } catch (e) {
             print(e);
-            emit(${className}Error(e.message));
+            emit(${className}Error(e.toString()));
           }
         }
     }
