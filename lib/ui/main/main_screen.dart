@@ -5,6 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ionicons/ionicons.dart';
 
+import '../../bloc/brand/brand_bloc.dart';
+import '../../bloc/brand/brand_event.dart';
+
 class MainScreen extends StatefulWidget {
   static const String id = "main_screen";
   const MainScreen({super.key});
@@ -18,11 +21,15 @@ class _MainScreenState extends State<MainScreen> {
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   late ProductTypeBloc _productTypeBloc;
+  late BrandBloc _brandBloc;
 
   @override
   void initState() {
     _productTypeBloc = BlocProvider.of(context);
     _productTypeBloc.add(GetProductTypeEvent());
+
+    _brandBloc = BlocProvider.of(context);
+    _brandBloc.add(GetDataEvent());
 
     super.initState();
   }

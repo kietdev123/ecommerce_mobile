@@ -11,6 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localization/flutter_localization.dart';
 import 'bloc/authentication/authentication_bloc.dart';
+import 'bloc/brand/brand_bloc.dart';
 import 'bloc/counter/counter_bloc.dart';
 import 'firebase_options.dart';
 import 'res/app_locale.dart';
@@ -42,6 +43,9 @@ Future<void> main() async {
         ),
         BlocProvider<ProductTypeBloc>(
           create: (BuildContext context) => ProductTypeBloc(),
+        ),
+        BlocProvider<BrandBloc>(
+          create: (BuildContext context) => BrandBloc(),
         ),
       ],
       child: const MyApp(),

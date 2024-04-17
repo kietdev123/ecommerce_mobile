@@ -17,6 +17,8 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_localization/flutter_localization.dart';
 import 'package:ionicons/ionicons.dart';
 
+import '../../../bloc/brand/brand_bloc.dart';
+import '../../../bloc/brand/brand_state.dart';
 import '../../../res/app_locale.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -35,6 +37,8 @@ class _HomeScreenState extends State<HomeScreen> {
   bool isObscure = true;
   late AuthenticationBloc _authenticationBloc;
   late ProductTypeBloc _productTypeBloc;
+  late BrandBloc _brandBloc;
+
   @override
   void initState() {
     Future.delayed(const Duration(seconds: 2), () {
@@ -43,6 +47,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
     _authenticationBloc = BlocProvider.of(context);
     _productTypeBloc = BlocProvider.of(context);
+    _brandBloc = BlocProvider.of(context);
 
     super.initState();
   }
@@ -55,6 +60,17 @@ class _HomeScreenState extends State<HomeScreen> {
         if (state is ProductTypeSuccess) {
           if (state.data != null) {
             return Column(children: [Text(state.data!.genders.toString())]);
+          }
+        }
+        return Column();
+      },
+      listener: (context, state) async {},
+    );
+    final brandContent = BlocConsumer<BrandBloc, BrandState>(
+      builder: (context, state) {
+        if (state is BrandSuccess) {
+          if (state.data != null) {
+            return Column(children: [Text(state.data!.names.toString())]);
           }
         }
         return Column();
@@ -100,6 +116,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 },
               ),
               productTypeContent,
+              brandContent,
             ]),
           ),
         ),
