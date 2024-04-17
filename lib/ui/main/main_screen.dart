@@ -1,5 +1,8 @@
+import 'package:ecommerce_mobile/bloc/product_type/product_type_bloc.dart';
+import 'package:ecommerce_mobile/bloc/product_type/product_type_event.dart';
 import 'package:ecommerce_mobile/ui/main/home/home_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ionicons/ionicons.dart';
 
 class MainScreen extends StatefulWidget {
@@ -14,6 +17,16 @@ class _MainScreenState extends State<MainScreen> {
   int _selectedIndex = 0;
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
+  late ProductTypeBloc _productTypeBloc;
+
+  @override
+  void initState() {
+    _productTypeBloc = BlocProvider.of(context);
+    _productTypeBloc.add(GetProductTypeEvent());
+
+    super.initState();
+  }
+
   static const List<Widget> _widgetOptions = <Widget>[
     // Text(
     //   'Index 0: Home',

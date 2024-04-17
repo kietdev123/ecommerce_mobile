@@ -1,6 +1,8 @@
 import 'package:ecommerce_mobile/bloc/authentication/authentication_bloc.dart';
 import 'package:ecommerce_mobile/bloc/authentication/authentication_event.dart';
 import 'package:ecommerce_mobile/bloc/authentication/authentication_state.dart';
+import 'package:ecommerce_mobile/bloc/product_type/product_type_bloc.dart';
+import 'package:ecommerce_mobile/bloc/product_type/product_type_state.dart';
 import 'package:ecommerce_mobile/main.dart';
 import 'package:ecommerce_mobile/res/resources.dart';
 import 'package:ecommerce_mobile/ui/main/setting/setting_screen.dart';
@@ -32,6 +34,7 @@ class _HomeScreenState extends State<HomeScreen> {
   bool isLoading = false;
   bool isObscure = true;
   late AuthenticationBloc _authenticationBloc;
+  late ProductTypeBloc _productTypeBloc;
   @override
   void initState() {
     Future.delayed(const Duration(seconds: 2), () {
@@ -39,6 +42,7 @@ class _HomeScreenState extends State<HomeScreen> {
     });
 
     _authenticationBloc = BlocProvider.of(context);
+    _productTypeBloc = BlocProvider.of(context);
 
     super.initState();
   }
@@ -46,45 +50,60 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     final resource = Resources(context);
-
-    return BlocConsumer<AuthenticationBloc, AuthenticationState>(
+    final productTypeContent = BlocConsumer<ProductTypeBloc, ProductTypeState>(
       builder: (context, state) {
-        return Scaffold(
-          body: SingleChildScrollView(
-            child: Center(
-              child: PaddingScreen(
-                child: Column(children: [
-                  Text('Home screen'),
-                  if (state is AuthenticationSuccess) ...[
-                    Text(state.uid.toString()),
-                    Text(state.name.toString()),
-                    Text(state.emailAddress.toString()),
-                    Text(state.profilePhoto.toString()),
-                  ],
-                  ElevatedButton(
-                      onPressed: () async {
-                        if (!(state is AuthenticationLoading))
-                          _authenticationBloc.add(SignOutEvent());
-                      },
-                      child: Text('Sign out'))
-                ]),
-              ),
-            ),
-          ),
-        );
-      },
-      listener: (context, state) async {
-        if (state is AuthenticationLoading) {
-          // EasyLoading.show();
-        } else if (state is AuthenticationSuccess) {
-          EasyLoading.dismiss();
-        } else if (state is AuthenticationError) {
-          EasyLoading.dismiss();
-
-          EasyLoading.showError(state.error.toString(),
-              duration: const Duration(seconds: 2));
+        if (state is ProductTypeSuccess) {
+          if (state.data != null) {
+            return Column(children: [Text(state.data!.genders.toString())]);
+          }
         }
+        return Column();
       },
+      listener: (context, state) async {},
+    );
+    return Scaffold(
+      body: SingleChildScrollView(
+        child: Center(
+          child: PaddingScreen(
+            child: Column(children: [
+              Text('Home screen'),
+              BlocConsumer<AuthenticationBloc, AuthenticationState>(
+                builder: (context, state) {
+                  if (state is AuthenticationSuccess)
+                    return Column(children: [
+                      ...[
+                        Text(state.uid.toString()),
+                        Text(state.name.toString()),
+                        Text(state.emailAddress.toString()),
+                        Text(state.profilePhoto.toString()),
+                      ],
+                      ElevatedButton(
+                          onPressed: () async {
+                            if (!(state is AuthenticationLoading))
+                              _authenticationBloc.add(SignOutEvent());
+                          },
+                          child: Text('Sign out'))
+                    ]);
+                  return Column();
+                },
+                listener: (context, state) async {
+                  if (state is AuthenticationLoading) {
+                    // EasyLoading.show();
+                  } else if (state is AuthenticationSuccess) {
+                    EasyLoading.dismiss();
+                  } else if (state is AuthenticationError) {
+                    EasyLoading.dismiss();
+
+                    EasyLoading.showError(state.error.toString(),
+                        duration: const Duration(seconds: 2));
+                  }
+                },
+              ),
+              productTypeContent,
+            ]),
+          ),
+        ),
+      ),
     );
   }
 }

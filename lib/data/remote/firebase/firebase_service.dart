@@ -1,5 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:ecommerce_mobile/data/models/brand.dart';
+import 'package:ecommerce_mobile/data/models/product_type.dart';
 import 'package:ecommerce_mobile/main.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+
+var db = FirebaseFirestore.instance;
 
 class FirebaseService {
   Future<dynamic> signInWithEmailPassword(String email, String password) async {
@@ -53,4 +58,40 @@ class FirebaseService {
       rethrow;
     }
   }
+
+  //product_type
+  Future<ProductTypeModel?> getProductType() async {
+    try {
+      final querySnapshot = await db.collection("product_type").get();
+      for (var docSnapshot in querySnapshot.docs) {
+        // print('${docSnapshot.id} => ${docSnapshot.data()}');
+        final data = docSnapshot.data();
+        return ProductTypeModel.fromJson(data);
+      }
+      return null;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  //brand
+  Future<BrandModel?> getBrand() async {
+    try {
+      final querySnapshot = await db.collection("brand").get();
+      for (var docSnapshot in querySnapshot.docs) {
+        // print('${docSnapshot.id} => ${docSnapshot.data()}');
+        final data = docSnapshot.data();
+        return BrandModel.fromJson(data);
+      }
+      return null;
+    } catch (e) {
+      rethrow;
+    }
+  }
+  //product
+  //order
+  //bag
+  //favorite
+  //shipping address
+  //paymethod
 }
