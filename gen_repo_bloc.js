@@ -9,7 +9,7 @@ const {
 // Format name: 
 // 1 word  : str
 // 2 words : str1_str2 or str1_str2_str3
-const name = "brand";
+const name = "product";
 
 async function createDirectory(path) {
     // console.log(path);

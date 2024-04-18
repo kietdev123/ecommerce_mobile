@@ -1,4 +1,5 @@
 import 'package:ecommerce_mobile/bloc/authentication/authentication_event.dart';
+import 'package:ecommerce_mobile/bloc/product/product_bloc.dart';
 import 'package:ecommerce_mobile/bloc/product_type/product_type_bloc.dart';
 import 'package:ecommerce_mobile/ui/auth/login_screen.dart';
 import 'package:ecommerce_mobile/ui/main/home/home_screen.dart';
@@ -46,6 +47,9 @@ Future<void> main() async {
         ),
         BlocProvider<BrandBloc>(
           create: (BuildContext context) => BrandBloc(),
+        ),
+        BlocProvider<ProductBloc>(
+          create: (BuildContext context) => ProductBloc(),
         ),
       ],
       child: const MyApp(),

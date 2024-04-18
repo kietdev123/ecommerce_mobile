@@ -4,7 +4,6 @@ class ProductModel {
   String? brand;
   String? gender;
   String? id;
-  String? imageUrl;
   String? masterCategory;
   int? price;
   String? productDisplayName;
@@ -15,6 +14,7 @@ class ProductModel {
   String? subCategory;
   String? usage;
   String? year;
+  List<String>? imgUrls;
 
   ProductModel(
       {this.articleType,
@@ -22,7 +22,6 @@ class ProductModel {
       this.brand,
       this.gender,
       this.id,
-      this.imageUrl,
       this.masterCategory,
       this.price,
       this.productDisplayName,
@@ -32,7 +31,8 @@ class ProductModel {
       this.star,
       this.subCategory,
       this.usage,
-      this.year});
+      this.year,
+      this.imgUrls});
 
   ProductModel.fromJson(Map<String, dynamic> json) {
     articleType = json['articleType'];
@@ -40,7 +40,6 @@ class ProductModel {
     brand = json['brand'];
     gender = json['gender'];
     id = json['id'];
-    imageUrl = json['imageUrl'];
     masterCategory = json['masterCategory'];
     price = json['price'];
     productDisplayName = json['productDisplayName'];
@@ -51,6 +50,7 @@ class ProductModel {
     subCategory = json['subCategory'];
     usage = json['usage'];
     year = json['year'];
+    imgUrls = json['imgUrls'].cast<String>();
   }
 
   Map<String, dynamic> toJson() {
@@ -60,7 +60,6 @@ class ProductModel {
     data['brand'] = this.brand;
     data['gender'] = this.gender;
     data['id'] = this.id;
-    data['imageUrl'] = this.imageUrl;
     data['masterCategory'] = this.masterCategory;
     data['price'] = this.price;
     data['productDisplayName'] = this.productDisplayName;
@@ -71,6 +70,7 @@ class ProductModel {
     data['subCategory'] = this.subCategory;
     data['usage'] = this.usage;
     data['year'] = this.year;
+    data['imgUrls'] = this.imgUrls;
     return data;
   }
 }

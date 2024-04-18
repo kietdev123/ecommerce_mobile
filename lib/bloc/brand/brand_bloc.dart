@@ -16,9 +16,9 @@ class BrandBloc extends Bloc<BrandEvent, BrandState> {
     emit(BrandLoading());
     if (event is GetDataEvent) {
       try {
-        final data = await _BrandRepo.getBrand();
+        await _BrandRepo.getBrand();
 
-        emit(BrandSuccess(data: data));
+        emit(BrandSuccess());
       } catch (e) {
         print(e);
         emit(BrandError(e.toString()));
