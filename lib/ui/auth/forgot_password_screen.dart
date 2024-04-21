@@ -9,7 +9,7 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 import '../../bloc/authentication/authentication_bloc.dart';
 import '../../res/resources.dart';
-import '../widgets/back_button.dart';
+import '../widgets/app_back_button.dart';
 import '../widgets/custom_card.dart';
 import '../widgets/padding_screen.dart';
 

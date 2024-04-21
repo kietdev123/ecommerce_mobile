@@ -103,7 +103,19 @@ class _MyAppState extends State<MyApp> {
           bodyMedium: resource.style.textDefault,
           bodySmall: resource.style.textDefault,
         ),
+        tabBarTheme: TabBarTheme(
+            labelColor: resource.color.colorPrimary,
+            // labelStyle: TextStyle(color: Colors.pink[800]), // color for text
+            indicator: UnderlineTabIndicator(
+                // color for indicator (underline)
+                borderSide: BorderSide(
+              color: resource.color.colorPrimary,
+            ))),
+        primaryColor:
+            resource.color.colorPrimary, // outdated and has no effect to Tabbar
+        // accentColor: resource.color.colorPrimary,
       ),
+
       home: StreamBuilder<User?>(
         stream: auth.authStateChanges(),
         builder: (context, snapshot) {

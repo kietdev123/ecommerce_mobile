@@ -1,36 +1,8 @@
-import 'dart:math';
-
-import 'package:ecommerce_mobile/bloc/authentication/authentication_bloc.dart';
-import 'package:ecommerce_mobile/bloc/authentication/authentication_event.dart';
-import 'package:ecommerce_mobile/bloc/authentication/authentication_state.dart';
-import 'package:ecommerce_mobile/bloc/brand/brand_event.dart';
-import 'package:ecommerce_mobile/bloc/product/product_state.dart';
-import 'package:ecommerce_mobile/bloc/product_type/product_type_bloc.dart';
-import 'package:ecommerce_mobile/bloc/product_type/product_type_state.dart';
-import 'package:ecommerce_mobile/main.dart';
 import 'package:ecommerce_mobile/res/resources.dart';
 import 'package:ecommerce_mobile/ui/main/home/widgets/home_title.dart';
 import 'package:ecommerce_mobile/ui/main/home/widgets/new_product_list.dart';
-import 'package:ecommerce_mobile/ui/main/setting/setting_screen.dart';
-import 'package:ecommerce_mobile/ui/utils/utils.dart';
-import 'package:ecommerce_mobile/ui/widgets/custom_card.dart';
-import 'package:ecommerce_mobile/ui/widgets/padding_screen.dart';
-import 'package:ecommerce_mobile/ui/widgets/proudct_vertical_card.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:flutter/widgets.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:flutter_localization/flutter_localization.dart';
-import 'package:ionicons/ionicons.dart';
-
-import '../../../bloc/brand/brand_bloc.dart';
-import '../../../bloc/brand/brand_state.dart';
-import '../../../bloc/product/product_bloc.dart';
-import '../../../bloc/product/product_event.dart';
-import '../../../res/app_locale.dart';
 import 'widgets/sliver_app_bar.dart';
 
 class HomeScreen extends StatefulWidget {

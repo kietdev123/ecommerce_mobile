@@ -17,7 +17,7 @@ import 'package:flutter_localization/flutter_localization.dart';
 import 'package:ionicons/ionicons.dart';
 
 import '../../res/app_locale.dart';
-import '../widgets/back_button.dart';
+import '../widgets/app_back_button.dart';
 
 class SignUpScreen extends StatefulWidget {
   static const String id = "sign_up_screen";

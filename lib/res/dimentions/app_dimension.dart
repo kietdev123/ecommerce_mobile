@@ -32,7 +32,7 @@ class AppDimension extends Dimensions {
   double get defaultText => 14;
 
   @override
-  double get mediumText => 16;
+  double get mediumText => 20;
 
   @override
   double get smallText => 14;

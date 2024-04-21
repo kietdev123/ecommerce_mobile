@@ -40,7 +40,7 @@ class AppStyle {
       color: AppColors().colorSecondaryText);
 
   TextStyle appbarTitleStyle = TextStyle(
-      fontSize: AppDimension().defaultText,
+      fontSize: AppDimension().mediumText,
       fontWeight: FontWeight.w600,
       color: AppColors().colorAppbarTitle);
 
