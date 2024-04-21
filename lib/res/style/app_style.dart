@@ -88,6 +88,11 @@ class AppStyle {
       fontWeight: FontWeight.w500,
       color: AppColors().colorPrimaryText);
 
+  TextStyle textDefaulThin = TextStyle(
+      fontSize: AppDimension().defaultText,
+      fontWeight: FontWeight.w400,
+      color: AppColors().colorPrimaryText);
+
   IconThemeData appbarIconTheme =
       IconThemeData(color: AppColors().colorAppbarTitle);
 }
