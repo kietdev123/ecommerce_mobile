@@ -66,9 +66,11 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ];
         },
-        body: SingleChildScrollView(
-          child: Center(
-            child: PaddingScreen(
+        body: Padding(
+          padding: EdgeInsets.fromLTRB(
+              resource.dimension.bigMargin, 0, resource.dimension.bigMargin, 0),
+          child: SingleChildScrollView(
+            child: Center(
               child: Column(children: [
                 const SizedBox(height: 48),
                 HomeTitle(

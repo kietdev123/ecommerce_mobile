@@ -1,13 +1,17 @@
 import 'package:ecommerce_mobile/bloc/product_type/product_type_bloc.dart';
 import 'package:ecommerce_mobile/bloc/product_type/product_type_event.dart';
+import 'package:ecommerce_mobile/ui/main/favorite/favorite_screen.dart';
 import 'package:ecommerce_mobile/ui/main/home/home_screen.dart';
+import 'package:ecommerce_mobile/ui/main/my_bag/my_bag_screen.dart';
 import 'package:ecommerce_mobile/ui/main/profile/profile_screen.dart';
+import 'package:ecommerce_mobile/ui/main/shop/shop_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ionicons/ionicons.dart';
 
 import '../../bloc/brand/brand_bloc.dart';
 import '../../bloc/brand/brand_event.dart';
+import '../../res/resources.dart';
 
 class MainScreen extends StatefulWidget {
   static const String id = "main_screen";
@@ -36,23 +40,10 @@ class _MainScreenState extends State<MainScreen> {
   }
 
   static const List<Widget> _widgetOptions = <Widget>[
-    // Text(
-    //   'Index 0: Home',
-    //   style: optionStyle,
-    // ),
     HomeScreen(),
-    Text(
-      'Index 1: Business',
-      style: optionStyle,
-    ),
-    Text(
-      'Index 2: School',
-      style: optionStyle,
-    ),
-    Text(
-      'Index 2: School',
-      style: optionStyle,
-    ),
+    ShopScreen(),
+    MyBagScreen(),
+    FavoriteScreen(),
     ProfileScreen(),
   ];
 
@@ -64,18 +55,13 @@ class _MainScreenState extends State<MainScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final resource = Resources(context);
     return SafeArea(
       child: Scaffold(
         resizeToAvoidBottomInset: false,
-        // resizeToAvoidBottomPadding: false,
-        // appBar: AppBar(
-        //   title: const Text('BottomNavigationBar Sample'),
-        // ),
-        body: Center(
-          child: _widgetOptions.elementAt(_selectedIndex),
-        ),
+        body: _widgetOptions.elementAt(_selectedIndex),
         bottomNavigationBar: Container(
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
               color: Colors.white,
               border:
                   Border(top: BorderSide(color: Colors.white, width: 12.0))),

@@ -43,6 +43,7 @@ class _NewProductListState extends State<NewProductList> {
               height: 250,
               // width: size.width,
               child: ListView.builder(
+                shrinkWrap: true,
                 scrollDirection: Axis.horizontal,
                 itemCount:
                     state.data!.length + 1, // Add 1 for loading indicator
