@@ -17,3 +17,7 @@ samples, guidance on mobile development, and a full API reference.
 - [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
 - [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
 - [Flutter-BLoC + Clean Architecture](https://marajhussain.medium.com/flutter-bloc-clean-architecture-best-practice-news-apis-3adb0e2012cc)
+
+Use this to run web (fix load image)
+
+    flutter run -d chrome --web-renderer html

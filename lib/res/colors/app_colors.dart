@@ -25,7 +25,7 @@ class AppColors implements BaseColors {
   Color get colorPrimaryText => Colors.black;
 
   @override
-  Color get colorSecondaryText => const Color(0xff3b3b3b);
+  Color get colorSecondaryText => Colors.grey;
 
   @override
   Color get colorAppbarTitle => const Color(0xff4f2b51);

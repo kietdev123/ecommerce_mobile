@@ -18,3 +18,13 @@ String? validateEmail(String? value, BuildContext context) {
       ? AppLocale.enterValidEmail.getString(context)
       : null;
 }
+
+String formatPrice(double value) {
+  String res = "";
+  if (value >= 1000000) {
+    res += '${(value / 1000000).toStringAsFixed(0)}tr';
+    value /= 1000000;
+  }
+  if (value >= 1000) res += '${(value / 1000).toStringAsFixed(0)}k';
+  return res;
+}

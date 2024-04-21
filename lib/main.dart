@@ -19,6 +19,7 @@ import 'res/app_locale.dart';
 import 'res/resources.dart';
 import 'routes/route_generator.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:flutter/gestures.dart';
 
 late final FirebaseApp app;
 late final FirebaseAuth auth;
@@ -90,6 +91,7 @@ class _MyAppState extends State<MyApp> {
     final resource = Resources(context);
 
     return MaterialApp(
+      scrollBehavior: MyCustomScrollBehavior(),
       // initialRoute: SignInScreen.id,
       onGenerateRoute: RouteGenerator().generateRoute,
       supportedLocales: localization.supportedLocales,
@@ -120,4 +122,13 @@ class _MyAppState extends State<MyApp> {
       ),
     );
   }
+}
+
+class MyCustomScrollBehavior extends MaterialScrollBehavior {
+  // Override behavior methods and getters like dragDevices
+  @override
+  Set<PointerDeviceKind> get dragDevices => {
+        PointerDeviceKind.touch,
+        PointerDeviceKind.mouse,
+      };
 }

@@ -1,6 +1,7 @@
 import 'package:ecommerce_mobile/bloc/product_type/product_type_bloc.dart';
 import 'package:ecommerce_mobile/bloc/product_type/product_type_event.dart';
 import 'package:ecommerce_mobile/ui/main/home/home_screen.dart';
+import 'package:ecommerce_mobile/ui/main/profile/profile_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ionicons/ionicons.dart';
@@ -52,10 +53,7 @@ class _MainScreenState extends State<MainScreen> {
       'Index 2: School',
       style: optionStyle,
     ),
-    Text(
-      'Index 2: School',
-      style: optionStyle,
-    ),
+    ProfileScreen(),
   ];
 
   void _onItemTapped(int index) {
@@ -66,40 +64,50 @@ class _MainScreenState extends State<MainScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('BottomNavigationBar Sample'),
-      ),
-      body: Center(
-        child: _widgetOptions.elementAt(_selectedIndex),
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        type: BottomNavigationBarType.fixed,
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
+    return SafeArea(
+      child: Scaffold(
+        resizeToAvoidBottomInset: false,
+        // resizeToAvoidBottomPadding: false,
+        // appBar: AppBar(
+        //   title: const Text('BottomNavigationBar Sample'),
+        // ),
+        body: Center(
+          child: _widgetOptions.elementAt(_selectedIndex),
+        ),
+        bottomNavigationBar: Container(
+          decoration: BoxDecoration(
+              color: Colors.white,
+              border:
+                  Border(top: BorderSide(color: Colors.white, width: 12.0))),
+          child: BottomNavigationBar(
+            type: BottomNavigationBarType.fixed,
+            items: const <BottomNavigationBarItem>[
+              BottomNavigationBarItem(
+                icon: Icon(Icons.home),
+                label: 'Home',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Ionicons.cart),
+                label: 'Shop',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Ionicons.bag),
+                label: 'Bag',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.favorite),
+                label: 'Favorites',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Ionicons.person),
+                label: 'Profile',
+              ),
+            ],
+            currentIndex: _selectedIndex,
+            selectedItemColor: Colors.amber[800],
+            onTap: _onItemTapped,
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Ionicons.cart),
-            label: 'Shop',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Ionicons.bag),
-            label: 'Bag',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.favorite),
-            label: 'Favorites',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Ionicons.person),
-            label: 'Profile',
-          ),
-        ],
-        currentIndex: _selectedIndex,
-        selectedItemColor: Colors.amber[800],
-        onTap: _onItemTapped,
+        ),
       ),
     );
   }

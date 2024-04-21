@@ -4,22 +4,39 @@ import '../../res/colors/app_colors.dart';
 import '../../res/dimentions/app_dimension.dart';
 
 class AppStyle {
+  // heading
   TextStyle headingTextStyle = TextStyle(
     fontSize: AppDimension().bigText,
     fontWeight: FontWeight.w500,
     color: AppColors().colorPrimaryText,
-    // shadows: [
-    //   Shadow(
-    //     blurRadius: 1.0,
-    //     color: Color.fromARGB(195, 100, 100, 100),
-    //     offset: Offset(0, 2),
-    //   ),
-    // ],
   );
 
+  TextStyle headingTextSmallStyle = TextStyle(
+    fontSize: AppDimension().smallText,
+    fontWeight: FontWeight.w500,
+    color: AppColors().colorPrimaryText,
+  );
+
+  TextStyle headingTextSmallStyleWithLineThrough = TextStyle(
+      fontSize: AppDimension().smallText,
+      fontWeight: FontWeight.w500,
+      color: AppColors().colorPrimaryText,
+      decoration: TextDecoration.lineThrough);
+
   TextStyle subHeadingTextStyle = TextStyle(
-      fontSize: AppDimension().mediumText,
-      fontWeight: FontWeight.w600,
+      fontSize: AppDimension().defaultText,
+      fontWeight: FontWeight.normal,
+      color: AppColors().colorSecondaryText);
+
+  TextStyle subHeadingTextSmallStyleWithLineThrough = TextStyle(
+      fontSize: AppDimension().smallText,
+      fontWeight: FontWeight.w500,
+      color: AppColors().colorSecondaryText,
+      decoration: TextDecoration.lineThrough);
+
+  TextStyle subHeadingTextSmallStyle = TextStyle(
+      fontSize: AppDimension().smallText,
+      fontWeight: FontWeight.normal,
       color: AppColors().colorSecondaryText);
 
   TextStyle appbarTitleStyle = TextStyle(
@@ -41,6 +58,10 @@ class AppStyle {
       fontSize: AppDimension().smallText,
       fontWeight: FontWeight.w600,
       color: Colors.white);
+  TextStyle whiteTextVerySmallStyle = TextStyle(
+      fontSize: AppDimension().verySmallText,
+      fontWeight: FontWeight.w600,
+      color: Colors.white);
 
   TextStyle drawerTextStyle = TextStyle(
       fontSize: AppDimension().mediumText,
@@ -57,9 +78,14 @@ class AppStyle {
       fontWeight: FontWeight.w600,
       color: AppColors().colorPrimary);
 
+  TextStyle textPrimarySmall = TextStyle(
+      fontSize: AppDimension().smallText,
+      fontWeight: FontWeight.w600,
+      color: AppColors().colorPrimary);
+
   TextStyle textDefault = TextStyle(
       fontSize: AppDimension().defaultText,
-      fontWeight: FontWeight.w400,
+      fontWeight: FontWeight.w500,
       color: AppColors().colorPrimaryText);
 
   IconThemeData appbarIconTheme =

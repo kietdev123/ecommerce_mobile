@@ -3,6 +3,7 @@ import 'package:ecommerce_mobile/ui/auth/forgot_password_screen.dart';
 import 'package:ecommerce_mobile/ui/auth/login_screen.dart';
 import 'package:ecommerce_mobile/ui/auth/sign_up_screen.dart';
 import 'package:ecommerce_mobile/ui/main/home/home_screen.dart';
+import 'package:ecommerce_mobile/ui/main/profile/profile_screen.dart';
 import 'package:ecommerce_mobile/ui/main/setting/setting_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -45,6 +46,11 @@ class RouteGenerator {
       case ForgotPasswordScreen.id:
         return MaterialPageRoute(
           builder: (_) => const ForgotPasswordScreen(),
+        );
+
+      case ProfileScreen.id:
+        return MaterialPageRoute(
+          builder: (_) => const ProfileScreen(),
         );
       default:
         return _errorRoute();
