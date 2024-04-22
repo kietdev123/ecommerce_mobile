@@ -6,7 +6,7 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import '../../../../bloc/product/product_bloc.dart';
 import '../../../../bloc/product/product_state.dart';
 import '../../../../res/resources.dart';
-import '../../../widgets/proudct_vertical_card.dart';
+import '../../../widgets/product_vertical_card.dart';
 
 class NewProductList extends StatefulWidget {
   const NewProductList({super.key});
