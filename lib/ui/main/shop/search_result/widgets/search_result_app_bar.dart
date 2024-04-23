@@ -1,7 +1,9 @@
 import 'dart:math';
 import 'package:ecommerce_mobile/res/resources.dart';
+import 'package:ecommerce_mobile/ui/main/shop/filter/filter_screen.dart';
 import 'package:ecommerce_mobile/ui/main/shop/search_result/widgets/select_sort_sheet.dart';
 import 'package:ecommerce_mobile/ui/widgets/app_back_button.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:ionicons/ionicons.dart';
@@ -107,11 +109,19 @@ class SearchResultAppBarDelegate extends SliverPersistentHeaderDelegate {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Row(
-                          children: [
-                            Icon(Ionicons.filter_outline),
-                            Text('Filter'),
-                          ],
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.of(context, rootNavigator: true)
+                                .pushNamed(
+                              FilterScreen.id,
+                            );
+                          },
+                          child: Row(
+                            children: [
+                              Icon(Ionicons.filter_outline),
+                              Text('Filter'),
+                            ],
+                          ),
                         ),
                         GestureDetector(
                           onTap: () {

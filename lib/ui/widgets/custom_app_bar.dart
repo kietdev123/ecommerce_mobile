@@ -42,7 +42,17 @@ class CustomAppBarDelegate extends SliverPersistentHeaderDelegate {
       padding: EdgeInsets.fromLTRB(
           resource.dimension.bigMargin, 0, resource.dimension.bigMargin, 0),
       width: MediaQuery.of(context).size.width,
-      decoration: BoxDecoration(color: Colors.white),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.3),
+            spreadRadius: 1,
+            blurRadius: 7,
+            offset: const Offset(0, 1), // changes position of shadow
+          ),
+        ],
+      ),
       child: Stack(
         fit: StackFit.expand,
         children: <Widget>[

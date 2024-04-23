@@ -5,6 +5,7 @@ import 'package:ecommerce_mobile/ui/auth/sign_up_screen.dart';
 import 'package:ecommerce_mobile/ui/main/home/home_screen.dart';
 import 'package:ecommerce_mobile/ui/main/profile/profile_screen.dart';
 import 'package:ecommerce_mobile/ui/main/setting/setting_screen.dart';
+import 'package:ecommerce_mobile/ui/main/shop/filter/filter_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../bloc/counter/counter_bloc.dart';
@@ -51,6 +52,11 @@ class RouteGenerator {
       case ProfileScreen.id:
         return MaterialPageRoute(
           builder: (_) => const ProfileScreen(),
+        );
+
+      case FilterScreen.id:
+        return MaterialPageRoute(
+          builder: (_) => FilterScreen(),
         );
       default:
         return _errorRoute();
